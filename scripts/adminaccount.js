@@ -40,8 +40,7 @@ $(document).ready(function() {
 				type: "post",
 				data: encodeURI("id=" + $(this).parent().siblings(".item-id").html() + "&inventory=" + inventory),
 				success: function(data) {
-					//location.reload();
-					alert(data);
+					
 				},
 				error: function() {
 					alert("error!");

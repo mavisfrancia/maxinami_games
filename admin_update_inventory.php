@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
 			require_once 'itemService.php';
 		    $itemService = new itemService();
 		    $itemService->adjustInventory($itemid, $inventory);
+		    exit();
 		}
-		die("Set new inventory of " . $inventory);
+		die("Invalid inventory value");
 
 	}
 	// User is not logged in, can't perform action
