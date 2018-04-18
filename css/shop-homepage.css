@@ -19,6 +19,24 @@ body {
     color:white;
     background: gray;
 }
+
+
+.productImage img{
+    width:100px;
+    height:200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#description{
+    height:300px;
+    overflow-y: scroll;   
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 #search-bar{
     width: 500px;
     margin-left: 50px;
@@ -40,6 +58,10 @@ footer{
     bottom: 0;
     overflow:hidden;
     
+}
+#product{
+    height: 1000px;
+    object-fit: cover;
 }
 @media (min-width: 992px) {
   body {
