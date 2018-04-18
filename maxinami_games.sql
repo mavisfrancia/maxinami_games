@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 18, 2018 at 03:07 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Host: localhost
+-- Generation Time: Apr 18, 2018 at 07:40 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -131,8 +131,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `fullname`, `address`, `hashedpass`, `phonenumber`, `status`) VALUES
 (1, 'anonymous', 'anonymous', 'N/A', 'N/A', 'N/A', 2),
-(2, 'Admin@maxinami.edu', 'Admin', 'N/A', '$2y$10$mmvPF7UwCXFR7PXkF30O0eKYKDEQ9h6XoZKGMtpYVIkp1cSfg5Iv6', 'N/A', 1),
-(4, 'a@gmail.com', 'A A', '1111 1st St Dallas TX 77777', '$2y$10$Tl24GpoOCM5uhafqwxFPAOznFqTmYHCBYeMxse3DA5qVWKTurJhaG', '972-222-2222', 0);
+(2, 'Admin@maxinami.edu', 'Admin', 'N/A', '$2y$10$mmvPF7UwCXFR7PXkF30O0eKYKDEQ9h6XoZKGMtpYVIkp1cSfg5Iv6', 'N/A', 0),
+(4, 'a@gmail.com', 'A A', '1111 1st St Dallas TX 77777', '$2y$10$Tl24GpoOCM5uhafqwxFPAOznFqTmYHCBYeMxse3DA5qVWKTurJhaG', '972-222-2222', 1),
+(5, 'mavis@email.com', 'Mavis Francia', '123 Main St', '$2y$10$zkE38n2qBVt5c8Qap.z6YeBCf2jELOkitWcu4i/mPc77RoBMVDYLi', '987-654-3210', 1);
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

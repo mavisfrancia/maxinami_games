@@ -135,7 +135,7 @@ function getRatingStarString($rating) {
                 if (count($items) == 1) {
                   $product_name = $items[0]->name;
                   $product_description = $items[0]->description;;
-                  $product_price = "$" . $items[0]->price;
+                  $product_price = $items[0]->price;
                   $product_avg_rating = $items[0]->rating;
                   $product_rating_string = getRatingStarString($product_avg_rating);
                   $product_img_link = $items[0]->imageLink;
@@ -162,7 +162,7 @@ function getRatingStarString($rating) {
             <img class="card-img-top img-fluid col-sm-6" src="<?php echo $product_img_uri; ?>" alt="">
             <div class="card-body">
               <h3 class="card-title"><?php echo $product_name; ?></h3>
-              <h4><?php echo $product_price; ?></h4>
+              <h4>$<?php echo number_format((float)$product_price, 2, '.', ''); ?></h4>
               <p class="card-text"><?php echo $product_description; ?></p>
               <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
               <?php 
@@ -182,47 +182,44 @@ function getRatingStarString($rating) {
           </div>
           <!-- /.card -->
 
-
-          <!--*************************************
-               TODO retrieve reviews from database
-              ************************************* -->
-
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Product Reviews
             </div>
-            <?php 
-                $result = mysqli_query($con, "SELECT * FROM user_rating WHERE product_id= ".$_GET["id"].";");
-                if ( mysqli_num_rows($result)== 0) { 
-                    echo "This product has not been rated yet";
-                } else { 
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    ?>
-                
-              <span class="text-warning"><?php 
-                      $rating=(int)$row['rating'];
-                      
-                      for($stars=5;$stars>0;$stars--){
-                        if ($rating>0){
-                            $rating--;
-                            ?>
-                        &#9733;
-                            <?php
+            <div class="card-body">
+              <?php 
+                  $result = mysqli_query($con, "SELECT * FROM user_rating WHERE product_id= ".$_GET["id"].";");
+                  if ( mysqli_num_rows($result)== 0) { 
+                      echo "This product has not been rated yet";
+                  } else { 
+                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                      ?>
+                  
+                <span class="text-warning"><?php 
+                        $rating=(int)$row['rating'];
+                        
+                        for($stars=5;$stars>0;$stars--){
+                          if ($rating>0){
+                              $rating--;
+                              ?>
+                          &#9733;
+                              <?php
+                          }
+                          else{
+                              ?>
+                              &#9734;
+                              <?php
+                          }
                         }
-                        else{
-                            ?>
-                            &#9734;
-                            <?php
-                        }
-                      }
-                      ?></span>
-              <p><?php echo $row['description']?></p>
-              <?php $user=mysqli_query($con, "SELECT * FROM users WHERE users.user_id= ".$row['user_id'].";"); 
-              $username=mysqli_fetch_array($user, MYSQLI_ASSOC)?>
-              <small class="text-muted">Posted by <?php echo $username['username']?></small>
-              <hr>
-                <?php }
-                }?>
+                        ?></span>
+                <p><?php echo $row['description']?></p>
+                <?php $user=mysqli_query($con, "SELECT * FROM users WHERE users.user_id= ".$row['user_id'].";"); 
+                $username=mysqli_fetch_array($user, MYSQLI_ASSOC)?>
+                <small class="text-muted">Posted by <?php echo $username['username']?></small>
+                <hr>
+                  <?php }
+                  }?>
+              </div>
             </div>
           </div>
           <!-- /.card -->

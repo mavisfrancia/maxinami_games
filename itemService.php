@@ -49,7 +49,7 @@ class itemService {
             return false;
         }
         finally {
-            mysqli_free_result($result);
+            // mysqli_free_result($result); // $result is an array here
             $con->close();
         }
     }
@@ -60,14 +60,14 @@ class itemService {
             $result=$this->itemAccess->selectByID($id, $con);
             if(count($result)==1){
                 $item=$result[0];
-                $item->quantity+=$quantity;
+                $item->number=$quantity;
                 $number= $this->itemAccess->updateUsingItem($item, $con);
                 return $this->determineAction($number, $con);
             }
             return false;
         }
         finally {
-            mysqli_free_result($result);
+            //mysqli_free_result($result); 
             $con->close();
         }
     }
@@ -83,6 +83,7 @@ class itemService {
              $con->close();
         }
     }
+    
     function deleteItem($id){
         try{
             $con= $this->connector->getConnection();

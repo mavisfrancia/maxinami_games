@@ -30,4 +30,58 @@ $(document).ready(function() {
 		$("#account-info-card").addClass("hidden");
 		$("#modify-items-card").removeClass("hidden");
 	});
+
+	$('.inventory').change(function() {
+		
+		var inventory = $(this).val();
+		if (validateIntegerInventory(inventory)) {
+			$.ajax({
+				url: "admin_update_itemlist.php",
+				type: "post",
+				data: encodeURI("action=update_inventory&id=" + $(this).parent().siblings(".item-id").html() + "&inventory=" + inventory),
+				success: function(data) {
+					
+				},
+				error: function() {
+					alert("error!");
+				}
+			});
+		} else {
+			alert("ERROR: Quantities must be nonnegative integer values.");
+			//location.reload();
+		}
+		
+	});
+
+	// returns true if qty is a postive integer (or string equivalent)
+	function validateIntegerInventory(inventory) {
+		if (Number.isInteger(inventory) && inventory >= 0)
+			return true;
+
+		if(typeof(inventory) === 'string') {
+			var onlyDigits = inventory.match(new RegExp(/^[0-9]+$/, 'g'));
+			if (onlyDigits)
+				return true;
+			else
+				return false;
+		}
+
+		return false;
+	};
+
+	$('.delete-btn').click(function() {
+
+		$.ajax({
+			url: "admin_update_itemlist.php",
+			type: "post",
+			data: encodeURI("action=disable_item" + "&id=" + $(this).parent().siblings(".item-id").html()),
+			success: function(data) {
+				
+			},
+			error: function(data) {
+				alert("error! " + data);
+			}
+		});
+
+	});
 });

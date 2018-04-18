@@ -60,39 +60,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-                $fullname = $_POST['name'];
-                $address= $_POST['address'];
-                $phone = $_POST['phone'];
-                
-		
-		
-                //Encrypt password
-                $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                
-                $add = new userService();
-                
-                $id = $add->addUser($username,$fullname,$address,$userpass,$phone,1);
-                    
-                if($id != -1)
-                {
-                     session_regenerate_id();
-                    $_SESSION['user_name'] = $username;
-                    $_SESSION['fullname'] = $fullname;
-                    $_SESSION['phone'] = $phone;
-                    $_SESSION['status'] = $staus;
-                    $_SESSION['address'] = $address;
-                    $_SESSION['user_id'] = $id;
+        $fullname = $_POST['name'];
+        $address= $_POST['address'];
+        $phone = $_POST['phone'];
+        
+		require_once 'userService.php';
+
+        //Encrypt password
+        $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        
+        $add = new userService();
+        
+        $id = $add->addUser($username,$fullname,$address,$userpass,$phone,1);
+            
+        if($id != -1)
+        {
+             session_regenerate_id();
+            $_SESSION['user_name'] = $username;
+            $_SESSION['fullname'] = $fullname;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['status'] = $staus;
+            $_SESSION['address'] = $address;
+            $_SESSION['user_id'] = $id;
 
 
-                    session_write_close();
-                    
-                    header('Location: index.php');
-                }
-                else
-                {
-                    header('Location: account_create.php');
-                    exit();
-                }
+            session_write_close();
+            
+            header('Location: index.php');
+        }
+        else
+        {
+            header('Location: account_create.php');
+            exit();
+        }
 	}
 }
 

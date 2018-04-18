@@ -13,6 +13,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Icon set -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
@@ -106,23 +109,23 @@
             ?>
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="First slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="First slide"></a>
               </div>
                 <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Second slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Second slide"></a>
               </div>
                 <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Third slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Third slide"></a>
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
               <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
               <span class="sr-only">Next</span>
             </a>
           </div>
@@ -140,7 +143,7 @@
                   <h4 class="card-title">
                     <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><?php echo $row['name']?></a>
                   </h4>
-                  <h5><?php echo $row['price']?></h5>
+                  <h5>$<?php echo number_format($row['price'], 2, '.', '');?></h5>
                   <p class="card-text" id="description"><?php echo $row['description']?></p>
                 </div>
                 <div class="card-footer">

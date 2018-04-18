@@ -119,6 +119,26 @@
             </div>
             <div class="card-body hidden" id="order-history-card">
               <div class="container">
+                <?php
+                $servername = 'localhost';
+                $serverusername = 'root';
+                $serverpassword = '';
+                $con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
+                
+                $result=mysqli_query($con, "SELECT * FROM users WHERE username= \"".$_SESSION['user_name']."\";");
+                
+                $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $id=$row['user_id'];
+                
+                $result=mysqli_query($con, "SELECT * FROM purchase_history WHERE user_id= ".$id.";");
+
+                $numPurchases = mysqli_num_rows($result);
+
+                if ( $numPurchases == 0) {
+                echo "No purchases have been made";
+                echo "<br>";
+                } else { 
+                ?> 
                 <table class="table">
                   <thead>
                     <tr>
@@ -130,24 +150,9 @@
                     </tr>
                   </thead>
                    <tbody>
-                       <?php
-                        $servername = 'localhost';
-                        $serverusername = 'root';
-                        $serverpassword = '';
-                        $con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
-                        
-                        $result=mysqli_query($con, "SELECT * FROM users WHERE username= \"".$_SESSION['user_name']."\";");
-                        
-                        $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-                        $id=$row['user_id'];
-                        
-                        $result=mysqli_query($con, "SELECT * FROM purchase_history WHERE user_id= ".$id.";");
-                        if ( mysqli_num_rows($result)== 0) { 
-                        echo "No purchases have been made";
-                        echo "<br>";
-                        } else { 
-                        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                        ?> 
+                    <?php
+                    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                    ?> 
                     <tr>
                         <?php
                         $query = mysqli_query($con, "SELECT * FROM items WHERE itemid=".$row['product_id'].";");
@@ -184,27 +189,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Product Name 1</td>
-                    <td><input type="text" class="form-control stock-num-input" value="4"></td>
-                    <td>$19.99</td>
+                  <?php
+
+                  require_once 'itemService.php';
+                  $itemService = new itemService();
+                  $result = $itemService->searchItem("%all%");
+
+                  while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                ?><tr>
+                    <td class="item-id" hidden><?php echo $row['itemid']; ?></td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><input type="text" class="form-control stock-num-input inventory" value="<?php echo $row['inventory']; ?>"></td>
+                    <td>$<?php echo number_format($row['price'], 2, '.', ''); ?></td>
                     <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-btn"><i class="fa fa-trash"></i></button></td>
                   </tr>
-                  <tr>
-                    <td>Product Name 2</td>
-                    <td><input type="text" class="form-control stock-num-input" value="10"></td>
-                    <td>$29.99</td>
-                    <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-                  </tr>
-                  <tr>
-                    <td>Product Name 3</td>
-                    <td><input type="text" class="form-control stock-num-input" value="2"></td>
-                    <td>$49.99</td>
-                    <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-                  </tr>
+                  <?php } ?>
                 </tbody>
               </table>
               <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Product</button>

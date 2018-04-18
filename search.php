@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,8 +44,7 @@
             </li>
             
             <li class="nav-item">
-                <?php 
-                    session_start();
+                <?php
                     if (isset($_SESSION['user_name']))
                         echo "<a class=\"nav-link\" href=\"account.php\">Your Account</a>";
                     else
