@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +23,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Maxinami Games</a>
+        <a class="navbar-brand" href="index.php">Maxinami Games</a>
         
-            <form class="form-inline" method ="post" action="search.php">
+            <form class="form-inline" method ="get" action="search.php">
                 <input class="form-control mr-sm-2" id="search-bar" placeholder="Search" aria-label="Search" name="search item">
                 <button class="btn btn-outline-secondary my-2 my-sm-2" id="button" type="submit">Search</button>
             </form>
@@ -44,7 +43,8 @@
             </li>
             
             <li class="nav-item">
-                <?php
+                <?php 
+                    session_start();
                     if (isset($_SESSION['user_name']))
                         echo "<a class=\"nav-link\" href=\"account.php\">Your Account</a>";
                     else
@@ -76,30 +76,74 @@
 
           <h1 class="my-4">Maxinami Games</h1>
           <div class="list-group">
-            <a href="search.php" class="list-group-item" name="board games">Board Games</a>
-            <a href="search.php" class="list-group-item" name="card games">Card Games</a>
-            <a href="search.php" class="list-group-item" name="video games">Video Games</a>
-            <a href="search.php" class="list-group-item" name="gift cards">Gift Cards</a>
+            <a href="search.php?search+item=%boardgame" class="list-group-item" name="board games">Board Games</a>
+            <a href="search.php?search+item=%cardgame" class="list-group-item" name="card games">Card Games</a>
+            <a href="search.php?search+item=%videogame" class="list-group-item" name="video games">Video Games</a>
+            <a href="search.php?search+item=%giftcard" class="list-group-item" name="gift cards">Gift Cards</a>
           </div>
 
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
-            <!--Insert content here!-->
+            <br>
+            <br>
+            <div class="row">
+              <?php
+                $search=$_GET['search_item'];
+                include_once 'itemService.php';
+                $service=new itemService();
+                $result = $service->searchItem($search);
+                if(mysqli_num_rows($result)== 0){
+                    echo "no results found";
+                }
+                else{
+                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){                
+            ?>  
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><img class="card-img-top" src=<?php echo 'imgs/'.$row['pictureLink']?> alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><?php echo $row['name']?></a>
+                  </h4>
+                  <h5><?php echo $row['price']?></h5>
+                  <p class="card-text" id="description"><?php echo $row['description']?></p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">
+                      <?php 
+                      $rating=(int)$row['rating'];
+                      
+                      for($stars=5;$stars>0;$stars--){
+                        if ($rating>0){
+                            $rating--;
+                            
+                            ?>
+                        &#9733;
+                            <?php
+                        }
+                        else{
+                            ?>
+                            &#9734;
+                            <?php
+                        }
+                      }
+                      ?>
+                      </small>
+                </div>
+              </div>
+            </div>
+
+              <?php
+                }
+                            }
+                           
+              ?>
+
+             
+          </div>
+          <!-- /.row -->
         </div>
          <!-- /.col-lg-9 -->
 
