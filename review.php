@@ -79,7 +79,7 @@
           <h1 class="my-4">Maxinami Games</h1>
           <div class="list-group">
             <a href="search.php?search+item=%boardgame" class="list-group-item" name="board games">Board Games</a>
-            <a href="search.php?search+item=%cardgame" class="list-group-item" name="card games">Card Games</a>
+            <a href="search.php?search+item=%25cardgame" class="list-group-item" name="card games">Card Games</a>
             <a href="search.php?search+item=%videogame" class="list-group-item" name="video games">Video Games</a>
             <a href="search.php?search+item=%giftcard" class="list-group-item" name="gift cards">Gift Cards</a>
           </div>
