@@ -184,27 +184,22 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+
+                  require_once 'itemService.php';
+                  $itemService = new itemService();
+                  $result = $itemService->searchItem("%all%");
+
+                  while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                  ?>
                   <tr>
-                    <td>Product Name 1</td>
-                    <td><input type="text" class="form-control stock-num-input" value="4"></td>
-                    <td>$19.99</td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><input type="text" class="form-control stock-num-input" value="<?php echo $row['inventory']; ?>"></td>
+                    <td>$<?php echo number_format($row['price'], 2, '.', '');; ?></td>
                     <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
                     <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
                   </tr>
-                  <tr>
-                    <td>Product Name 2</td>
-                    <td><input type="text" class="form-control stock-num-input" value="10"></td>
-                    <td>$29.99</td>
-                    <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-                  </tr>
-                  <tr>
-                    <td>Product Name 3</td>
-                    <td><input type="text" class="form-control stock-num-input" value="2"></td>
-                    <td>$49.99</td>
-                    <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-                  </tr>
+                  <?php } ?>
                 </tbody>
               </table>
               <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Product</button>
