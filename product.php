@@ -182,47 +182,44 @@ function getRatingStarString($rating) {
           </div>
           <!-- /.card -->
 
-
-          <!--*************************************
-               TODO retrieve reviews from database
-              ************************************* -->
-
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Product Reviews
             </div>
-            <?php 
-                $result = mysqli_query($con, "SELECT * FROM user_rating WHERE product_id= ".$_GET["id"].";");
-                if ( mysqli_num_rows($result)== 0) { 
-                    echo "This product has not been rated yet";
-                } else { 
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    ?>
-                
-              <span class="text-warning"><?php 
-                      $rating=(int)$row['rating'];
-                      
-                      for($stars=5;$stars>0;$stars--){
-                        if ($rating>0){
-                            $rating--;
-                            ?>
-                        &#9733;
-                            <?php
+            <div class="card-body">
+              <?php 
+                  $result = mysqli_query($con, "SELECT * FROM user_rating WHERE product_id= ".$_GET["id"].";");
+                  if ( mysqli_num_rows($result)== 0) { 
+                      echo "This product has not been rated yet";
+                  } else { 
+                  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                      ?>
+                  
+                <span class="text-warning"><?php 
+                        $rating=(int)$row['rating'];
+                        
+                        for($stars=5;$stars>0;$stars--){
+                          if ($rating>0){
+                              $rating--;
+                              ?>
+                          &#9733;
+                              <?php
+                          }
+                          else{
+                              ?>
+                              &#9734;
+                              <?php
+                          }
                         }
-                        else{
-                            ?>
-                            &#9734;
-                            <?php
-                        }
-                      }
-                      ?></span>
-              <p><?php echo $row['description']?></p>
-              <?php $user=mysqli_query($con, "SELECT * FROM users WHERE users.user_id= ".$row['user_id'].";"); 
-              $username=mysqli_fetch_array($user, MYSQLI_ASSOC)?>
-              <small class="text-muted">Posted by <?php echo $username['username']?></small>
-              <hr>
-                <?php }
-                }?>
+                        ?></span>
+                <p><?php echo $row['description']?></p>
+                <?php $user=mysqli_query($con, "SELECT * FROM users WHERE users.user_id= ".$row['user_id'].";"); 
+                $username=mysqli_fetch_array($user, MYSQLI_ASSOC)?>
+                <small class="text-muted">Posted by <?php echo $username['username']?></small>
+                <hr>
+                  <?php }
+                  }?>
+              </div>
             </div>
           </div>
           <!-- /.card -->
