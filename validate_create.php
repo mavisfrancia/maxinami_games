@@ -78,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['user_name'] = $username;
                 $_SESSION['fullname'] = $fullname;
                 $_SESSION['phone'] = $phone;
-                $_SESSION['status'] = $staus;
+                $_SESSION['user_status'] = 1;
                 $_SESSION['address'] = $address;
                 $_SESSION['user_id'] = $id;
 
