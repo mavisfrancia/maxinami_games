@@ -77,3 +77,7 @@ footer{
 .carousel-inner .carousel-item img {
     margin: auto;
 }
+
+.card-img-top {
+    margin: auto;
+}
