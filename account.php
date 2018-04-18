@@ -29,9 +29,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Maxinami Games</a>
+          <a class="navbar-brand" href="index.php">Maxinami Games</a>
         
-            <form class="form-inline" method ="post" action="search.php">
+            <form class="form-inline" method ="get" action="search.php">
                 <input class="form-control mr-sm-2" id="search-bar" placeholder="Search" aria-label="Search" name="search item">
                 <button class="btn btn-outline-secondary my-2 my-sm-2" id="button" type="submit">Search</button>
             </form>
@@ -82,10 +82,10 @@
 
           <h1 class="my-4">Maxinami Games</h1>
           <div class="list-group">
-            <a href="search.php" class="list-group-item" name="board games">Board Games</a>
-            <a href="search.php" class="list-group-item" name="card games">Card Games</a>
-            <a href="search.php" class="list-group-item" name="video games">Video Games</a>
-            <a href="search.php" class="list-group-item" name="gift cards">Gift Cards</a>
+            <a href="search.php?search+item=%boardgame" class="list-group-item" name="board games">Board Games</a>
+            <a href="search.php?search+item=%cardgame" class="list-group-item" name="card games">Card Games</a>
+            <a href="search.php?search+item=%videogame" class="list-group-item" name="video games">Video Games</a>
+            <a href="search.php?search+item=%giftcard" class="list-group-item" name="gift cards">Gift Cards</a>
           </div>
 
         </div>
