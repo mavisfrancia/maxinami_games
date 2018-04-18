@@ -193,8 +193,9 @@
                   while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                   ?>
                   <tr>
+                    <td class="item-id" hidden><?php echo $row['itemid']; ?></td>
                     <td><?php echo $row['name']; ?></td>
-                    <td><input type="text" class="form-control stock-num-input" value="<?php echo $row['inventory']; ?>"></td>
+                    <td><input type="text" class="form-control stock-num-input inventory" value="<?php echo $row['inventory']; ?>"></td>
                     <td>$<?php echo number_format($row['price'], 2, '.', '');; ?></td>
                     <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
                     <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
