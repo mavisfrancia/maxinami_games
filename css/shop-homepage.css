@@ -68,3 +68,12 @@ footer{
     padding-top: 56px;
   }
 }
+
+.fa-chevron-left, .fa-chevron-right {
+    color: #cccccc;
+    font-size: 30px;
+}
+
+.carousel-inner .carousel-item img {
+    margin: auto;
+}
