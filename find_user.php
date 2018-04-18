@@ -1,4 +1,6 @@
 <?php
+require_once 'userService.php';
+
 session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$ERR="";
@@ -31,51 +33,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	else{
 		
 		$username = $_POST['username'];
-		$password = $_POST['password'];
-		
-		$con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
-		$username = mysqli_real_escape_string($con, $_POST['username']);
-		$userpass = $_POST['password'];
-		
-		$result = mysqli_query($con, "SELECT * FROM users WHERE username='$username';");
-		
-		//Username is found
-		if(mysqli_num_rows($result) > 0){
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                		$user_id = $row['user_id'];
-                		$user_status = $row['status'];
-                        $password = $row['hashedpass'];//Get hashed password
-                        $fullname = $row['fullname'];
-                        $address = $row['address'];
-                        $phone = $row['phonenumber'];
-                }
+            $password = $_POST['password'];
+
+            $login = new userService();
+
+            $id = $login->login($username,$password);
+
+            //If user is found in database
+            if($id != -1){
                 
-                //If password does not match with database
-                if(!password_verify($userpass, $password)){
-                        header('Location: signIn.php');
-                        exit();
-                }
-                else{
-                        session_regenerate_id();
-                        $_SESSION['user_id'] = $user_id;
-                        $_SESSION['user_status'] = $user_status;
-                        $_SESSION['user_name'] = $username;
-                        $_SESSION['fullname'] = $fullname;
-                        $_SESSION['phone'] = $phone;
-                        $_SESSION['address'] = $address;
+                $row = $login->getInfo($id);
+                
+                $user_status = $row['status'];
+                $fullname = $row['fullname'];
+                $address = $row['address'];
+                $phone = $row['phonenumber'];
+                
+                
+                session_regenerate_id();
+                $_SESSION['user_id'] = $id;
+                $_SESSION['user_status'] = $user_status;
+                $_SESSION['user_name'] = $username;
+                $_SESSION['fullname'] = $fullname;
+                $_SESSION['phone'] = $phone;
+                $_SESSION['address'] = $address;
 
-						load_cart();
-
-                        session_write_close();
-                        header('Location: index.php');
-                        
-                        
-                }
-		}
-		else{//Username is not found
-			header('Location: signIn.php');
-			exit();
-		}
+                load_cart();
+                session_write_close();
+                header('Location: index.php');
+                echo 'login success';
+            }
+            else{
+                    header('Location: signIn.php');
+                    echo 'login fail';
+                   exit();
+            }
 	}
 }
 

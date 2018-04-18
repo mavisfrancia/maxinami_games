@@ -36,7 +36,7 @@ class userService {
                      $hashedpassword=$row["hashedpass"];
                      $id=$row["user_id"];
                  }
-                 if(!password_verify($password, $hashedpassword)){
+                 if(password_verify($password, $hashedpassword)){
                      return $id;
                  }
             }
