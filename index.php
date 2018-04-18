@@ -143,7 +143,7 @@
                   <h4 class="card-title">
                     <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><?php echo $row['name']?></a>
                   </h4>
-                  <h5><?php echo $row['price']?></h5>
+                  <h5>$<?php echo number_format($row['price'], 2, '.', '');?></h5>
                   <p class="card-text" id="description"><?php echo $row['description']?></p>
                 </div>
                 <div class="card-footer">

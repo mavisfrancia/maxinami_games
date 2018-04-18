@@ -135,7 +135,7 @@ function getRatingStarString($rating) {
                 if (count($items) == 1) {
                   $product_name = $items[0]->name;
                   $product_description = $items[0]->description;;
-                  $product_price = "$" . $items[0]->price;
+                  $product_price = $items[0]->price;
                   $product_avg_rating = $items[0]->rating;
                   $product_rating_string = getRatingStarString($product_avg_rating);
                   $product_img_link = $items[0]->imageLink;
@@ -162,7 +162,7 @@ function getRatingStarString($rating) {
             <img class="card-img-top img-fluid col-sm-6" src="<?php echo $product_img_uri; ?>" alt="">
             <div class="card-body">
               <h3 class="card-title"><?php echo $product_name; ?></h3>
-              <h4><?php echo $product_price; ?></h4>
+              <h4>$<?php echo number_format((float)$product_price, 2, '.', ''); ?></h4>
               <p class="card-text"><?php echo $product_description; ?></p>
               <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
               <?php 
