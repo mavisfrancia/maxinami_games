@@ -6,7 +6,6 @@ $(document).ready(function() {
 			data: encodeURI("id=" + $(this).siblings(".itemid").html()),
 			success: function(data) {
 				alert("Added to cart!");
-				alert(data);
 			},
 			error: function() {
 				alert("error!");

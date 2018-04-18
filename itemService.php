@@ -49,7 +49,7 @@ class itemService {
             return false;
         }
         finally {
-            mysqli_free_result($result);
+            // mysqli_free_result($result); // $result is an array here
             $con->close();
         }
     }
@@ -67,7 +67,7 @@ class itemService {
             return false;
         }
         finally {
-            //mysqli_free_result($result); // $result is an array here
+            //mysqli_free_result($result); 
             $con->close();
         }
     }
@@ -83,6 +83,7 @@ class itemService {
              $con->close();
         }
     }
+    
     function deleteItem($id){
         try{
             $con= $this->connector->getConnection();

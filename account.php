@@ -202,7 +202,7 @@
                     <td><input type="text" class="form-control stock-num-input inventory" value="<?php echo $row['inventory']; ?>"></td>
                     <td>$<?php echo number_format($row['price'], 2, '.', '');; ?></td>
                     <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    <td><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-btn"><i class="fa fa-trash"></i></button></td>
                   </tr>
                   <?php } ?>
                 </tbody>

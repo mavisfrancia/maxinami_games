@@ -36,9 +36,9 @@ $(document).ready(function() {
 		var inventory = $(this).val();
 		if (validateIntegerInventory(inventory)) {
 			$.ajax({
-				url: "admin_update_inventory.php",
+				url: "admin_update_itemlist.php",
 				type: "post",
-				data: encodeURI("id=" + $(this).parent().siblings(".item-id").html() + "&inventory=" + inventory),
+				data: encodeURI("action=update_inventory&id=" + $(this).parent().siblings(".item-id").html() + "&inventory=" + inventory),
 				success: function(data) {
 					
 				},
@@ -68,4 +68,20 @@ $(document).ready(function() {
 
 		return false;
 	};
+
+	$('.delete-btn').click(function() {
+
+		$.ajax({
+			url: "admin_update_itemlist.php",
+			type: "post",
+			data: encodeURI("action=disable_item" + "&id=" + $(this).parent().siblings(".item-id").html()),
+			success: function(data) {
+				
+			},
+			error: function(data) {
+				alert("error! " + data);
+			}
+		});
+
+	});
 });
