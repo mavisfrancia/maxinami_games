@@ -24,9 +24,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Maxinami Games</a>
+        <a class="navbar-brand" href="index.php">Maxinami Games</a>
         
-            <form class="form-inline" method ="post" action="search.php">
+            <form class="form-inline" method ="get" action="search.php">
                 <input class="form-control mr-sm-2" id="search-bar" placeholder="Search" aria-label="Search" name="search item">
                 <button class="btn btn-outline-secondary my-2 my-sm-2" id="button" type="submit">Search</button>
             </form>
@@ -44,7 +44,7 @@
             </li>
             
             <li class="nav-item">
-                <?php
+                <?php 
                     
                     if (isset($_SESSION['user_name']))
                         echo "<a class=\"nav-link\" href=\"account.php\">Your Account</a>";
@@ -78,16 +78,17 @@
 
           <h1 class="my-4">Maxinami Games</h1>
           <div class="list-group">
-            <a href="search.php" class="list-group-item" name="board games">Board Games</a>
-            <a href="search.php" class="list-group-item" name="card games">Card Games</a>
-            <a href="search.php" class="list-group-item" name="video games">Video Games</a>
-            <a href="search.php" class="list-group-item" name="gift cards">Gift Cards</a>
+            <a href="search.php?search+item=%boardgame" class="list-group-item" name="board games">Board Games</a>
+            <a href="search.php?search+item=%cardgame" class="list-group-item" name="card games">Card Games</a>
+            <a href="search.php?search+item=%videogame" class="list-group-item" name="video games">Video Games</a>
+            <a href="search.php?search+item=%giftcard" class="list-group-item" name="gift cards">Gift Cards</a>
           </div>
 
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
+             
 
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -95,15 +96,25 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
+               <?php
+            $servername = 'localhost';
+            $serverusername = 'root';
+            $serverpassword = '';
+            $con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
+            $result = mysqli_query($con, "SELECT product_id,SUM(quantity) as amt,pictureLink FROM purchase_history,items WHERE purchase_history.product_id=items.itemid GROUP BY product_id ORDER BY amt DESC");
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            ?>
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="First slide">
               </div>
+                <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Second slide">
               </div>
+                <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Third slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -117,103 +128,51 @@
           </div>
 
           <div class="row">
-
+             
+           <?php
+            $result = mysqli_query($con, "SELECT * FROM items ORDER BY inventory DESC;");
+            while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){                
+            ?>  
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><img class="card-img-top" src=<?php echo 'imgs/'.$row['pictureLink']?> alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">Item One</a>
+                    <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><?php echo $row['name']?></a>
                   </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                  <h5><?php echo $row['price']?></h5>
+                  <p class="card-text" id="description"><?php echo $row['description']?></p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                  <small class="text-muted">
+                      <?php 
+                      $rating=(int)$row['rating'];
+                      
+                      for($stars=5;$stars>0;$stars--){
+                        if ($rating>0){
+                            $rating--;
+                            
+                            ?>
+                        &#9733;
+                            <?php
+                        }
+                        else{
+                            ?>
+                            &#9734;
+                            <?php
+                        }
+                      }
+                      ?>
+                      </small>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Two</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Three</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Four</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Five</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Six</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
+              <?php
+              
+                            }
+                            mysqli_close($con);
+              ?>
           </div>
           <!-- /.row -->
 
