@@ -101,7 +101,7 @@
                 <a id="order-history-tab" class="nav-link" href="#">Order History</a>
               </li>
               <?php
-              if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 1) {
+              if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 0) {
               ?>
               <li class="nav-item">
                 <a id="modify-items-tab" class="nav-link" href="#">Modify Items</a>
@@ -156,7 +156,7 @@
               </div>
             </div>
             <?php
-            if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 1) {
+            if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 0) {
             ?>
             <div class="card-body hidden" id="modify-items-card">
               <table class="table">
@@ -219,7 +219,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <?php
-    if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 1) {
+    if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 0) {
     ?>
     <script src="scripts/adminaccount.js"></script>
     <?php } else { ?>
