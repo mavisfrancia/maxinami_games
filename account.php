@@ -129,28 +129,42 @@
                       <th scope="col">Write Review</th>
                     </tr>
                   </thead>
-                  <tbody>
+                   <tbody>
+                       <?php
+                        $servername = 'localhost';
+                        $serverusername = 'root';
+                        $serverpassword = '';
+                        $con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
+                        
+                        $result=mysqli_query($con, "SELECT * FROM users WHERE username= \"".$_SESSION['user_name']."\";");
+                        
+                        $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+                        $id=$row['user_id'];
+                        
+                        $result=mysqli_query($con, "SELECT * FROM purchase_history WHERE user_id= ".$id.";");
+                        if ( mysqli_num_rows($result)== 0) { 
+                        echo "No purchases have been made";
+                        echo "<br>";
+                        } else { 
+                        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                        ?> 
                     <tr>
-                      <td>04/06/2018</td>
-                      <td>Risk</td>
-                      <td>1</td>
-                      <td>$19.99</td>
+                        <?php
+                        $query = mysqli_query($con, "SELECT * FROM items WHERE itemid=".$row['product_id'].";");
+                        $product = mysqli_fetch_array($query, MYSQLI_ASSOC);
+                        ?>
+                        <td><?php echo $row['time_of_purchase']?></td>
+                        <td><?php echo $product['name']?></td>
+                      <td><?php echo $row['quantity']?></td>
+                      <td><?php echo $product['price']?></td>
                       <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button></td>
                     </tr>
-                    <tr>
-                      <td>04/04/2018</td>
-                      <td>Shadow of the Colossus</td>
-                      <td>1</td>
-                      <td>$9.99</td>
-                      <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    </tr>
-                    <tr>
-                      <td>04/04/2018</td>
-                      <td>Steam $50 Gift Card</td>
-                      <td>2</td>
-                      <td>$100.00</td>
-                      <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button></td>
-                    </tr>
+                        <?php
+                        }
+                        }
+                        mysqli_close($con);
+                        ?>
+                   
                   </tbody>
                 </table>
               </div>
