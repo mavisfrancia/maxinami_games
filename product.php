@@ -9,7 +9,9 @@ function getRatingStarString($rating) {
     4 star:  3.5  -  4.499999
     5 star:  4.5  -  5
   */
-  if ($rating < 1.5)
+  if($rating==0)
+      return "&#9734; &#9734; &#9734; &#9734; &#9734;";
+  else if ($rating < 1.5)
     return "&#9733; &#9734; &#9734; &#9734; &#9734;";
   else if ($rating < 2.5)
     return "&#9733; &#9733; &#9734; &#9734; &#9734;";
@@ -163,7 +165,16 @@ function getRatingStarString($rating) {
               <h4><?php echo $product_price; ?></h4>
               <p class="card-text"><?php echo $product_description; ?></p>
               <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
-              <?php echo $product_avg_rating; ?> stars
+              <?php 
+              if ($product_avg_rating!=0){
+                  echo $product_avg_rating; ?> stars
+                  <?php
+                  
+              }
+                  else{
+                      echo "This product has not been rated yet";
+                  }
+                  ?>
               <hr>
               <span class="itemid" hidden><?php echo $product_id; ?></span>
               <button type="button" id="add-to-cart-btn" class="btn btn-success">Add to Cart</button>
