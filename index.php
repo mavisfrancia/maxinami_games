@@ -109,15 +109,15 @@
             ?>
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="First slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="First slide"></a>
               </div>
                 <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Second slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Second slide"></a>
               </div>
                 <?php $row = mysqli_fetch_array($result, MYSQLI_ASSOC); ?>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Third slide">
+                <a href="product.php?action=get_product&id=<?php echo $row['product_id']; ?>"><img class="d-block img-fluid" src=<?php echo 'imgs/'.$row['pictureLink']?> alt="Third slide"></a>
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
