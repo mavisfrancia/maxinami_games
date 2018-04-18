@@ -63,53 +63,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $fullname = $_POST['name'];
                 $address= $_POST['address'];
                 $phone = $_POST['phone'];
-                $admin = $_POST[0];
-		
-		$con = new mysqli($servername, $serverusername, $serverpassword, "maxinami_games");
                 
-                // Check connection
-                if ($con->connect_error) {
-                    die("Connection failed: " . $con->connect_error);
-                } 
+		
+		
+                //Encrypt password
+                $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
                 
-		$username = mysqli_real_escape_string($con, $_POST['username']);
-		$userpass = $_POST['password'];
-		
-		$result = mysqli_query($con, "SELECT * FROM users WHERE username='$username';");
-		
-		
-		//If username exist kick back to account create
-		if(mysqli_num_rows($result) > 0){
-		
+                $add = new userService();
+                
+                $id = $add->addUser($username,$fullname,$address,$userpass,$phone,1);
                     
-                header('Location: account_create.php');
-                exit();	
-		}
-		else{
-                    
-                    //Encrypt password
-                    $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    
-                    session_regenerate_id();
+                if($id != -1)
+                {
+                     session_regenerate_id();
                     $_SESSION['user_name'] = $username;
                     $_SESSION['fullname'] = $fullname;
                     $_SESSION['phone'] = $phone;
-                    $_SESSION['admin'] = $admin;
+                    $_SESSION['status'] = $staus;
                     $_SESSION['address'] = $address;
+                    $_SESSION['user_id'] = $id;
 
-                    //Insert new user into user database
-                    $insert = "INSERT INTO users (username, fullname, address, hashedpass, phonenumber, status) VALUES " 
-                            ." ('$username','$name' ,'$address','$userpass','$phone','$admin' )";
-                    
-                    if (!mysqli_query($con,$insert))
-                    {
-                    die('Error: ' . mysqli_error($con));
-                    }
 
                     session_write_close();
+                    
                     header('Location: index.php');
-			
-		}
+                }
+                else
+                {
+                    header('Location: account_create.php');
+                    exit();
+                }
 	}
 }
 
