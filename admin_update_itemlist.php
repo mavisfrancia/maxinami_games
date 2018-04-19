@@ -118,7 +118,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 	}
 
 	function update_item() {
-		exit('Update item');
+
+		require_once 'itemDAO.php';
+	    require_once 'databaseConnector.php';
+	    $db = new databaseConnector();
+	    $con = $db->getConnection();
+
+	    $itemDAO = new itemDAO();
+	    $items = $itemDAO->selectByID($_POST['id'], $con);
+	    if (count($items) == 1) {
+	    	$pictureLinkLabel=$items[0]->imageLink;
+	    	$rating=$items[0]->rating;
+	    } elseif (count($items) == 0) {
+	    	die("ERROR: ID not found.");
+	    } else {
+	    	die("ERROR: Duplicate ID found.");
+	    }
+
+		// User uploaded a file
+		if (is_uploaded_file($_FILES['product-image']['tmp_name'])) {
+			echo "file found\n";
+			$result = upload_file();
+			$success = $result['upload_successful'];
+			if ($success) {
+				$pictureLink = $result['filename'];
+			} else {
+				// keep old image
+				$pictureLink = $pictureLinkLabel;
+			}
+		} else { // No file was selected, keep old image
+			$pictureLink = $pictureLinkLabel;
+		}
+		//exit("Picture: " . $pictureLink);
+
+		$name = $_POST['product-name'];
+		$type = $_POST['product-type'];
+		$description = $_POST['product-description'];
+		$inventory = $_POST['product-inventory'];
+		$price = $_POST['product-price'];
+
+	    require_once 'itemService.php';
+
+	    $itemService = new itemService();
+	    $itemService->modifyItem($_POST['id'],$name,$description,$price,$inventory,$pictureLink,$type,$rating);
 	}
 
 	switch($_POST['action']) {

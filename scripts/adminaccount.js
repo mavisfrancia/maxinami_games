@@ -70,18 +70,25 @@ $(document).ready(function() {
 	};
 
 	$('.delete-btn').click(function() {
-
+		
 		$.ajax({
 			url: "admin_update_itemlist.php",
 			type: "post",
 			data: encodeURI("action=disable_item" + "&id=" + $(this).parent().siblings(".item-id").html()),
 			success: function(data) {
-				
+				//alert(data);
+				location.reload();
 			},
 			error: function(data) {
 				alert("error! " + data);
 			}
 		});
+
+	});
+
+	$('.update-btn').click(function() {
+
+		location.href = "product_info_form.php?" + encodeURI("action=update_product" + "&id=" + $(this).parent().siblings(".item-id").html());
 
 	});
 });

@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if (!isset($_SESSION['user_status'])) {
+  header('Location: signin.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -201,13 +207,13 @@
                     <td><?php echo $row['name']; ?></td>
                     <td><input type="text" class="form-control stock-num-input inventory" value="<?php echo $row['inventory']; ?>"></td>
                     <td>$<?php echo number_format($row['price'], 2, '.', ''); ?></td>
-                    <td><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button></td>
+                    <td><button type="button" class="btn btn-secondary btn-sm update-btn"><i class="fa fa-pencil"></i></button></td>
                     <td><button type="button" class="btn btn-danger btn-sm delete-btn"><i class="fa fa-trash"></i></button></td>
                   </tr>
                   <?php } ?>
                 </tbody>
               </table>
-              <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Product</button>
+              <a href="product_info_form.php?action=add_new_product" role="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Product</a>
             </div>
             <?php } ?>
           </div>

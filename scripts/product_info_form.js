@@ -8,8 +8,10 @@ $(document).ready(function() {
 	$("#submit-btn").click(function(event) {
 		event.preventDefault();
 
-		var form = $('#new-product-form')[0];
+		var form = $('#product-form')[0];
 		var data = new FormData(form);
+
+		console.log(data);
 
 		var name = $("#product-name").val();
 		var type = $("#product-type").val();
@@ -30,10 +32,10 @@ $(document).ready(function() {
 	            cache: false,
 	            timeout: 600000,
 	            success: function (data) {
-	            	alert(data);
+	            	alert("SUCCESS: " + data);
 	            },
 	            error: function (e) {
-
+	            	alert("ERROR: " + e);
 	            }
 	        });
 		}

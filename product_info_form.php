@@ -1,4 +1,50 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if (!isset($_SESSION['user_status']) || $_SESSION['user_status'] != 0) {
+  header('Location: signin.php');
+}
+
+if (!isset($_GET['action'])) {
+  header('Location: index.php');
+}
+
+if ($_GET['action'] != 'add_new_product' && $_GET['action'] != 'update_product') {
+  header('Location: index.php');
+}
+
+if ($_GET['action'] == 'update_product') {
+  if(!isset($_GET['id'])) {
+    header('Location: index.php');
+  } else {
+    require_once 'itemDAO.php';
+    require_once 'databaseConnector.php';
+    $db = new databaseConnector();
+    $con = $db->getConnection();
+
+    $itemDAO = new itemDAO();
+    $items = $itemDAO->selectByID($_GET['id'], $con);
+    if (count($items) == 1) {
+      $name = $items[0]->name;
+      $type = $items[0]->type;
+      $description = $items[0]->description;
+      $inventory = $items[0]->number;
+      $price = $items[0]->price;
+      $pictureLinkLabel=$items[0]->imageLink;
+    } else {
+      die("ERROR: Duplicate id found.");
+    }
+
+  }
+} else {
+  $name = '';
+  $type = '-1';
+  $description = '';
+  $inventory = '';
+  $price = '';
+  $pictureLinkLabel = 'Choose file';
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,32 +136,49 @@
         <div class="col-lg-9">
           <div class="card mt-4">
             <div class="card-body">
-              <h1>Add New Product</h1>
+              <h1><?php
+
+              if ($_GET['action'] == 'add_new_product') {
+                echo 'Add New Product';
+              } else {
+                echo 'Update Product';
+              }
+
+
+              ?></h1>
               <hr>
 
-              <form id="new-product-form" enctype="multipart/form-data" action="admin_update_itemlist.php" method="POST">
-                <input name="action" value="add_item" hidden>
+              <form id="product-form" enctype="multipart/form-data" action="admin_update_itemlist.php" method="POST">
+                <input name="action" value=<?php
+                if ($_GET['action'] == 'update_product')
+                  echo 'update_item';
+                else
+                  echo 'add_item';
+                ?> hidden>
+                <?php if ($_GET['action'] == 'update_product') { ?>
+                <input name="id" value=<?php echo $_GET['id']; ?> hidden>
+                <?php } ?>
                 <div class="form-group">
                   <label for="product-name">Product Name</label>
-                  <input name="product-name" type="text" class="form-control" id="product-name" aria-describedby="productName">
+                  <input name="product-name" type="text" class="form-control" id="product-name" aria-describedby="productName" value="<?php echo $name; ?>">
                 </div>
                 <div class="form-group">
                   <label for="product-type">Type</label>
                   <select name="product-type" class="custom-select" name="rating" id="product-type">
-                    <option selected disabled hidden>Select a product type...</option>
-                    <option value="1">Board Game</option>
-                    <option value="2">Video Game</option>
-                    <option value="3">Card Game</option>
-                    <option value="4">Gift Card</option>
+                    <option <?php if ($type == '-1') echo 'selected'; ?> disabled hidden>Select a product type...</option>
+                    <option <?php if ($type == '1') echo 'selected'; ?> value="1">Board Game</option>
+                    <option <?php if ($type == '2') echo 'selected'; ?> value="2">Video Game</option>
+                    <option <?php if ($type == '3') echo 'selected'; ?> value="3">Card Game</option>
+                    <option <?php if ($type == '4') echo 'selected'; ?> value="4">Gift Card</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="product-description">Description</label>
-                  <textarea name="product-description" class="form-control" rows="6" id="product-description"></textarea>
+                  <textarea name="product-description" class="form-control" rows="6" id="product-description"><?php echo $description; ?></textarea>
                 </div>
                 <div class="form-group">
                   <label for="product-inventory">Inventory</label>
-                  <input name="product-inventory" type="text" class="form-control" id="product-inventory" aria-describedby="inventory">
+                  <input name="product-inventory" type="text" class="form-control" id="product-inventory" aria-describedby="inventory" value="<?php echo $inventory; ?>">
                 </div>
                 <div class="form-group">
                   <label for="product-price">Price</label>
@@ -123,7 +186,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">$</span>
                     </div>
-                    <input name="product-price" id="product-price" type="text" class="form-control" aria-label="price" aria-describedby="productPrice">
+                    <input name="product-price" id="product-price" type="text" class="form-control" aria-label="price" aria-describedby="productPrice" value="<?php echo $price; ?>">
                   </div>
                 </div> 
                 <div class="form-group">
@@ -131,7 +194,7 @@
                     <div class="input-group mb-3">
                       <div class="custom-file">
                         <input name="product-image" type="file" class="custom-file-input" id="product-image">
-                        <label id="product-image-label" class="custom-file-label" for="product-image">Choose file</label>
+                        <label id="product-image-label" class="custom-file-label" for="product-image"><?php echo $pictureLinkLabel; ?></label>
                       </div>
                     </div>
 
@@ -166,7 +229,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/newproduct.js"></script>
+    <script src="scripts/product_info_form.js"></script>
 
   </body>
 

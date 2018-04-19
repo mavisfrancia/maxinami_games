@@ -75,7 +75,7 @@ class itemService {
         try{
             $con= $this->connector->getConnection();
         $item=new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink);
-        $con->begin();
+        $con->begin_transaction();
         $number= $this->itemAccess->updateUsingItem($item, $con);
         return $this->determineAction($number, $con);      
         }
