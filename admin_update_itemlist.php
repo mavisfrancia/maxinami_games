@@ -154,6 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 		$name = $_POST['product-name'];
 		$type = $_POST['product-type'];
 		$description = $_POST['product-description'];
+		$description = htmlentities($description);
 		$inventory = $_POST['product-inventory'];
 		$price = $_POST['product-price'];
 

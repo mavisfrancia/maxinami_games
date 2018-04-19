@@ -41,6 +41,7 @@ function getRatingStarString($rating) {
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+    <link href="css/product.css" rel="stylesheet">
 
   </head>
 
@@ -163,7 +164,7 @@ function getRatingStarString($rating) {
             <div class="card-body">
               <h3 class="card-title"><?php echo $product_name; ?></h3>
               <h4>$<?php echo number_format((float)$product_price, 2, '.', ''); ?></h4>
-              <p class="card-text"><?php echo $product_description; ?></p>
+              <p class="card-text line-breaks-wrap"><?php echo $product_description; ?></p>
               <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
               <?php 
               if ($product_avg_rating!=0){
@@ -212,7 +213,7 @@ function getRatingStarString($rating) {
                           }
                         }
                         ?></span>
-                <p><?php echo $row['description']?></p>
+                <p class="line-breaks-wrap"><?php echo $row['description']?></p>
                 <?php $user=mysqli_query($con, "SELECT * FROM users WHERE users.user_id= ".$row['user_id'].";"); 
                 $username=mysqli_fetch_array($user, MYSQLI_ASSOC)?>
                 <small class="text-muted">Posted by <?php echo $username['username']?></small>
