@@ -93,28 +93,29 @@
               <h1>Add New Product</h1>
               <hr>
 
-              <form>
+              <form id="new-product-form" enctype="multipart/form-data" action="admin_update_itemlist.php" method="POST">
+                <input name="action" value="add_item" hidden>
                 <div class="form-group">
                   <label for="product-name">Product Name</label>
-                  <input type="text" class="form-control" id="product-name" aria-describedby="productName">
+                  <input name="product-name" type="text" class="form-control" id="product-name" aria-describedby="productName">
                 </div>
                 <div class="form-group">
                   <label for="product-type">Type</label>
-                  <select  class="custom-select" name="rating" id="product-type">
+                  <select name="product-type" class="custom-select" name="rating" id="product-type">
                     <option selected disabled hidden>Select a product type...</option>
-                    <option value="board-game">Board Game</option>
-                    <option value="card-game">Card Game</option>
-                    <option value="video-game">Video Game</option>
-                    <option value="gift-card">Gift Card</option>
+                    <option value="1">Board Game</option>
+                    <option value="2">Video Game</option>
+                    <option value="3">Card Game</option>
+                    <option value="4">Gift Card</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="product-description">Description</label>
-                  <textarea class="form-control" rows="6" id="product-description"></textarea>
+                  <textarea name="product-description" class="form-control" rows="6" id="product-description"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="product-inventory">Inventory</label>
-                  <input type="text" class="form-control" id="product-inventory" aria-describedby="inventory">
+                  <input name="product-inventory" type="text" class="form-control" id="product-inventory" aria-describedby="inventory">
                 </div>
                 <div class="form-group">
                   <label for="product-price">Price</label>
@@ -122,20 +123,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">$</span>
                     </div>
-                    <input id="product-price" type="text" class="form-control" aria-label="price" aria-describedby="productPrice">
+                    <input name="product-price" id="product-price" type="text" class="form-control" aria-label="price" aria-describedby="productPrice">
                   </div>
-                </div>
+                </div> 
                 <div class="form-group">
                   <label for="product-image">Image</label>
                     <div class="input-group mb-3">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="product-image">
-                        <label class="custom-file-label" for="product-image">Choose file</label>
+                        <input name="product-image" type="file" class="custom-file-input" id="product-image">
+                        <label id="product-image-label" class="custom-file-label" for="product-image">Choose file</label>
                       </div>
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button id="submit-btn" name="submit" type="submit" class="btn btn-primary">Submit</button>
               </form>
             </div>
 
@@ -165,6 +166,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/newproduct.js"></script>
 
   </body>
 
