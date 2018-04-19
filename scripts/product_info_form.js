@@ -11,15 +11,11 @@ $(document).ready(function() {
 		var form = $('#product-form')[0];
 		var data = new FormData(form);
 
-		console.log(data);
-
 		var name = $("#product-name").val();
 		var type = $("#product-type").val();
 		var description = $("#product-description").val();
 		var inventory = $("#product-inventory").val();
 		var price = $("#product-price").val();
-
-		alert($("#product-image").val() + " type: " + typeof($("#product-image").val()));
 
 		if(validate(name, type, description, inventory, price)) {
 			$.ajax({
@@ -32,7 +28,7 @@ $(document).ready(function() {
 	            cache: false,
 	            timeout: 600000,
 	            success: function (data) {
-	            	alert("SUCCESS: " + data);
+	            	location.href = "account.php";
 	            },
 	            error: function (e) {
 	            	alert("ERROR: " + e);
