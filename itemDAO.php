@@ -43,7 +43,7 @@ class itemDAO {
                      $type=$row["type"];
                      $pictureLink=$row["pictureLink"];
                      $rating=$row["rating"];
-                     array_merge($items,[new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink)]);
+                     array_push($items,[new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink)]);
                  }
                  
             }
