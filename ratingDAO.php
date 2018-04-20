@@ -10,7 +10,8 @@ class ratingDAO {
     private $selectByItemSQL="SELECT * FROM user_rating WHERE product_id=?";
     private $updateSQL="UPDATE user_rating SET user_id=?,product_id=?,rating=?,description=? WHERE user_id=? AND product_id=?";
     private $deleteSQL="DELETE FROM user_rating WHERE user_id=? AND product_id=?";
-    function createPurchase($userID,$itemID,$rating,$description,$con) {
+    private $itemRating="SELECT AVG(rating) FROM user_rating WHERE product_id=?";
+    function createRating($userID,$itemID,$rating,$description,$con) {
         $statement=mysqli_prepare($con, $this->createSQL);
         $statement->bind_param("iids",$userID,$itemID,$rating,$description);
         $statement->execute();
@@ -52,5 +53,14 @@ class ratingDAO {
         $result=$statement->affected_rows;
         $statement->close();
         return $result;
+    }
+    function getItemAverage($itemID,$con){
+        $statement= mysqli_prepare($con, $this->itemRating);
+        $statement->bind_param("i",$itemID);
+        $statement->execute();
+        $result=$statement->get_result();
+        if(mysqli_num_rows($result)>0){
+            return mysqli_fetch_array($result,MYSQLI_NUM)[0];
+        }
     }
 }

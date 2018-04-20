@@ -49,7 +49,7 @@ class itemService {
             return false;
         }
         finally {
-            // mysqli_free_result($result); // $result is an array here
+            mysqli_free_result($result);
             $con->close();
         }
     }
@@ -60,14 +60,14 @@ class itemService {
             $result=$this->itemAccess->selectByID($id, $con);
             if(count($result)==1){
                 $item=$result[0];
-                $item->number=$quantity;
+                $item->quantity+=$quantity;
                 $number= $this->itemAccess->updateUsingItem($item, $con);
                 return $this->determineAction($number, $con);
             }
             return false;
         }
         finally {
-            //mysqli_free_result($result); 
+            mysqli_free_result($result);
             $con->close();
         }
     }
@@ -75,7 +75,7 @@ class itemService {
         try{
             $con= $this->connector->getConnection();
         $item=new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink);
-        $con->begin_transaction();
+        $con->begin();
         $number= $this->itemAccess->updateUsingItem($item, $con);
         return $this->determineAction($number, $con);      
         }
@@ -83,7 +83,6 @@ class itemService {
              $con->close();
         }
     }
-    
     function deleteItem($id){
         try{
             $con= $this->connector->getConnection();
@@ -106,4 +105,5 @@ class itemService {
             return true;
         }
     }
+    
 }

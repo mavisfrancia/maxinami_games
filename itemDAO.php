@@ -18,7 +18,8 @@ class itemDAO {
     private $updateSQL="UPDATE items SET name=?,description=?,price=?,inventory=?,pictureLink=?,type=?,rating=? WHERE itemid=?";
     private $deleteSQL="DELETE FROM items WHERE itemid=?";
     private $searchSQL='SELECT * FROM items WHERE type > "0"';
-    function createItem($name,$description,$price,$inventory,$pictureLink,$type,$rating,$con) {
+    private $reduceQuantitySQL="UPDATE items SET inventory=inventory-? WHERE itemid=? AND inventory>?";
+            function createItem($name,$description,$price,$inventory,$pictureLink,$type,$rating,$con) {
         $statement=mysqli_prepare($con, $this->createSQL);
         $statement->bind_param("ssdisid",$name,$description,$price,$inventory,$pictureLink,$type,$rating );
         $statement->execute();
@@ -42,7 +43,7 @@ class itemDAO {
                      $type=$row["type"];
                      $pictureLink=$row["pictureLink"];
                      $rating=$row["rating"];
-                     array_push($items, new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink));
+                     array_merge($items,[new Item($id,$name,$description,$price,$type,$rating,$inventory,$pictureLink)]);
                  }
                  
             }
@@ -57,7 +58,7 @@ class itemDAO {
             return $result;
         }
     }
-    function deleteItem($id,$con){
+            function deleteItem($id,$con){
         $statement= mysqli_prepare($con, $this->deleteSQL);
         $statement->bind_param("i", $id);
         $statement->execute();
@@ -77,8 +78,15 @@ class itemDAO {
     }
     function updateUsingItem($item,$con){
         if(is_a($item, "Item")){
-            return $this->updateItem($item->id, $item->name, $item->description, $item->price, $item->number, $item->imageLink, $item->type, $item->rating, $con);
+            return updateItem($item->id, $item->name, $item->description, $item->price, $item->inventory, $item->pictureLink, 0, $item->rating, $con);
         }
         return 0;
+    }
+    function reduceQuantity($id,$quantity,$con){
+        $statement= mysqli_prepare($con, $this->reduceQuantitySQL);
+        $statement->bind_param("iii", $quantity,$id,$quantity);
+        $statement->execute();
+        $result=$statement->affected_rows;
+        return $result;
     }
 }

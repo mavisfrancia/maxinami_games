@@ -14,7 +14,8 @@
 class purchaseHistoryDAO {
     private $createSQL="INSERT INTO purchase_history (user_id,product_id,quantity,time_of_purchase) VALUES (?,?,?,?)";
     private $selectByUserSQL="SELECT * FROM purchase_history WHERE user_id=? ORDER_BY (time_of_purchase) DESC";
-    private $selectByItemSQL="SELECT * FROM purchase_history WHERE product_id=?";
+    private $selectByItemSQL="SELECT * FROM purchase_history WHERE product_id=? AND user_id=?";
+    private $selectByUserItemSQL="SELECT * FROM purchase_history WHERE product_id=?";
     private $updateSQL="UPDATE purchase_history SET user_id=?,product_id=?,quantity=?,time_of_purchase=? WHERE user_id=? AND product_id=?";
     private $deleteSQL="DELETE FROM purchase_history WHERE user_id=? AND product_id=? AND time_of_purchase=?";
     function createPurchase($userID,$itemID,$quantity,$con) {
@@ -22,7 +23,6 @@ class purchaseHistoryDAO {
         $statement->bind_param("iiis",$userID,$itemID,$quantity, time());
         $statement->execute();
         $statement->close();
-        return $id;
     }
     
     function selectByUser($userId,$con){
@@ -37,6 +37,14 @@ class purchaseHistoryDAO {
     function selectByItem($itemId,$con){
         $statement= mysqli_prepare($con, $this->selectByItemSQL);
         $statement->bind_param("i", $itemId);
+        $statement->bind_result($result);
+        $statement->execute();
+        $statement->close();
+        return $result;
+    }
+    function selectUserItem($userId,$itemId,$con){
+        $statement= mysqli_prepare($con, $this->selectByUserItemSQL);
+        $statement->bind_param("ii", $itemId,$userId);
         $statement->bind_result($result);
         $statement->execute();
         $statement->close();
