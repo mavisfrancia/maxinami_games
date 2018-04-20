@@ -78,7 +78,7 @@ class itemDAO {
     }
     function updateUsingItem($item,$con){
         if(is_a($item, "Item")){
-            return $this->updateItem($item->id, $item->name, $item->description, $item->price, $item->inventory, $item->pictureLink, 0, $item->rating, $con);
+            return $this->updateItem($item->id, $item->name, $item->description, $item->price, $item->number, $item->imageLink, $item->type, $item->rating, $con);
         }
         return 0;
     }
