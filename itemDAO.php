@@ -58,7 +58,7 @@ class itemDAO {
             return $result;
         }
     }
-            function deleteItem($id,$con){
+    function deleteItem($id,$con){
         $statement= mysqli_prepare($con, $this->deleteSQL);
         $statement->bind_param("i", $id);
         $statement->execute();
@@ -78,7 +78,7 @@ class itemDAO {
     }
     function updateUsingItem($item,$con){
         if(is_a($item, "Item")){
-            return updateItem($item->id, $item->name, $item->description, $item->price, $item->inventory, $item->pictureLink, 0, $item->rating, $con);
+            return $this->updateItem($item->id, $item->name, $item->description, $item->price, $item->inventory, $item->pictureLink, 0, $item->rating, $con);
         }
         return 0;
     }
