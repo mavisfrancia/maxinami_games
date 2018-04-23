@@ -130,7 +130,7 @@
                   <label for="credit-card">Credit Card</label>
                   <input type="credit-card" class="form-control" id="credit-card" aria-describedby="createAccount">
                 </div>
-                <div class="form-group">
+                <div <?php echo (isset($_GET['user_id'] ? "hidden" : "") ?>class="form-group">
                   <label for="create-account-check">Create Account</label>
                   <input type="checkbox" class="form-control" id="create-account-check" aria-describedby="createAccount">
                 </div>
