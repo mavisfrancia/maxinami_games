@@ -83,7 +83,6 @@ class userService {
             
         }
         finally {
-            mysqli_free_result($result);
             $con->close();
         }
     }
