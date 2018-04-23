@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 		}
 		// update quantity of item in cart and database
 		$_SESSION['cart'][$itemid] += 1;
-		$result = $cartDAO->updateItemQuantity($_SESSION['user_id'], $itemid, $_SESSION['cart'][$itemid], $con);
+		$result = $cartDAO->updatePurchase($_SESSION['user_id'], $itemid, $_SESSION['cart'][$itemid], $con);
 		session_write_close();
 		//var_dump($_SESSION['cart']);
 

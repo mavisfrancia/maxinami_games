@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 19, 2018 at 11:47 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Apr 23, 2018 at 10:21 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,7 +36,7 @@ CREATE TABLE `items` (
   `pictureLink` varchar(50) NOT NULL,
   `inventory` int(11) NOT NULL DEFAULT '0',
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:Closed, 1:Board, 2:Video, 3:Card, 4:GiftCard',
-  `rating` float NOT NULL DEFAULT '5'
+  `rating` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -74,7 +74,11 @@ INSERT INTO `items` (`itemid`, `name`, `description`, `price`, `pictureLink`, `i
 (28, 'Steam $50 Gift Card', 'A gift card for Valve Steam.', 50, 'steam50.png', 50, 4, 0),
 (29, 'Playstation Store $50 Gift Card', 'A gift card for Playstation Network Store.\r\nThis card is valid for:\r\nPlaystation 3\r\nPlaystation 4\r\nPlaystation Vita\r\nPlaystation Portable System (PSP)\r\n', 50, 'playStationStore50.png', 50, 4, 0),
 (30, 'Xbox Live $50 Gift Card', 'A gift card for the Xbox Live store.\r\nThis card is valid for:\r\nXbox One\r\nXbox 360\r\n', 50, 'xbox50.jpg', 50, 4, 0),
-(31, 'Mass Effect', 'As Commander Shepard, you lead an elite squad on a heroic, action-packed adventure throughout the galaxy. Discover the imminent danger from an ancient threat and battle the traitorous Saren and his deadly army to save civilization. The fate of all life depends on your actions!\r\nYear: 2007\r\nPlatform: Xbox 360', 19.99, 'massEffect.jpg', 51, 2, 0);
+(31, 'Mass Effect', 'As Commander Shepard, you lead an elite squad on a heroic, action-packed adventure throughout the galaxy. Discover the imminent danger from an ancient threat and battle the traitorous Saren and his deadly army to save civilization. The fate of all life depends on your actions!\r\nYear: 2007\r\nPlatform: Xbox 360', 19.99, 'massEffect.jpg', 51, 2, 0),
+(35, 'Minecraft Prepaid Card', 'This has a code which will allow you to download one copy of Minecraft: Java Edition', 26.95, 'minecraftPrepaidCard.png', 50, 4, 0),
+(36, 'Lost in a Jigsaw: The Diagonal Maze Puzzle', 'Only by figuring out these cunning 515 piece diagonally cut maze puzzles will you be able to survive before you are Lost in a Jigsaw. In Escape from Eden, There is only one way out, and it will take all of your cunning and logic to escape. Before your perilous journey home, you must assemble the very maze you\'re trapped within!', 14.95, 'lostInAJigsaw.png', 4, 1, 0),
+(37, 'Nintendo Selects: Animal Crossing: New Leaf', 'Animal Crossing: New Leaf is loaded with new characters, items, and activities to enjoy all year long. Customize outfits in countless ways. Furnish your house with an extensive variety of furniture, carpet, and wall decorations to reflect your personality. Visit the new Main Street shopping area and Happy Home Showcase. Swim in the ocean to find rare shellfish. Collect insects and fossils all year long. As mayor, make the big decisions about what to build, business hours for shops, and other new ways to customize your town to your liking. Then connect with friends to show off what makes your character, your house, and your town unique.', 19.99, 'animalCrossingNewLeaf.jpg', 50, 2, 0),
+(38, 'Cards Against Humanity', 'Cards Against Humanity is a party game for horrible people. Now version 2.0! Over 150 new cards since the last version. Contains 500 white cards and 100 black cards for maximum replayability. Includes a booklet of sensible game rules and preposterous alternate rules. America\'s #1 gerbil coffin. ', 25, 'cardsAgainstHumanity.png', 50, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -110,6 +114,13 @@ CREATE TABLE `shopping_cart` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `shopping_cart`
+--
+
+INSERT INTO `shopping_cart` (`user_id`, `product_id`, `quantity`) VALUES
+(6, 19, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -134,7 +145,8 @@ INSERT INTO `users` (`user_id`, `username`, `fullname`, `address`, `hashedpass`,
 (1, 'anonymous', 'anonymous', 'N/A', 'N/A', 'N/A', 2),
 (2, 'Admin@maxinami.edu', 'Admin', 'N/A', '$2y$10$mmvPF7UwCXFR7PXkF30O0eKYKDEQ9h6XoZKGMtpYVIkp1cSfg5Iv6', 'N/A', 0),
 (4, 'a@gmail.com', 'A A', '1111 1st St Dallas TX 77777', '$2y$10$Tl24GpoOCM5uhafqwxFPAOznFqTmYHCBYeMxse3DA5qVWKTurJhaG', '972-222-2222', 1),
-(5, 'mavis@email.com', 'Mavis Francia', '123 Main St', '$2y$10$zkE38n2qBVt5c8Qap.z6YeBCf2jELOkitWcu4i/mPc77RoBMVDYLi', '987-654-3210', 1);
+(5, 'mavis@email.com', 'Mavis Francia', '123 Main St', '$2y$10$zkE38n2qBVt5c8Qap.z6YeBCf2jELOkitWcu4i/mPc77RoBMVDYLi', '987-654-3210', 1),
+(6, 'nam130330@utdallas.edu', 'Nathan Morrison', 'This is a Secret', '$2y$10$ggNSSqt04hMhPcaRa5M0WOpNrbC5liYaFPt3cFCZSffzvqidrLhb2', '2142074268', 1);
 
 -- --------------------------------------------------------
 
@@ -201,13 +213,13 @@ ALTER TABLE `user_rating`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `itemid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
