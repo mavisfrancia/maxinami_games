@@ -36,15 +36,42 @@
         
         //For the username(email) field
         $("#username").keyup(function(){
-            
+            //Store email error message
+            var emailText = "";
+                     
             //If the field is empty
             if($(this).val() === '')
             {
+                //Empty text
+                emailText = "";
+                $("#usernameerror").css({"color": "green"});
+                document.getElementById("usernameerror").innerHTML = emailText;
                 usernameFilled = false;
             }
             else
             {
-                usernameFilled = true;
+                //Check to see if email is valid
+                var email = document.getElementById("username").value;
+                var isEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                var isCorrect = isEmail.test(email);
+                
+                //If email is invalid, stop user from entering data
+                if(!isCorrect)
+                {
+                    emailText = "Username must be an email";
+                    $("#usernameerror").css({"color": "red"});
+                    document.getElementById("usernameerror").innerHTML = emailText;
+                    usernameFilled = false;
+                }
+                else//If email is valid, pass the usernameFilled check
+                {
+                    //Empty text
+                    emailText = "";
+                    $("#usernameerror").css({"color": "green"});
+                    document.getElementById("usernameerror").innerHTML = emailText;
+                    
+                    usernameFilled = true;
+                }
             }
             
             //Check it all required fields are filled and enable/disable button if they
@@ -112,8 +139,14 @@
             var phoneText = "";
             var phone = document.getElementById("phone").value;
             
+            //If phone field is empty check to see if all other required fields are filled
             if($(this).val() === '')
             {
+                //Empty text
+                phoneText = "";
+                $("#phoneerror").css({"color": "green"});
+                document.getElementById("phoneerror").innerHTML = phoneText;
+                
                 //Check it all required fields are filled and enable/disable button if they
                 //are or are not respectively
                 if(usernameFilled && nameFilled && addressFilled && passwordFilled)
@@ -125,7 +158,7 @@
                     $("#userSubmit").prop("disabled", true);
                 } 
             }
-            else
+            else//If phone is filled, check to see if the entry is valid
             {
                 var isCorrect = isNumber.test(phone);
                 
@@ -139,6 +172,7 @@
                 }
                 else//Check to see if all required fields are filled
                 {
+                    //Empty text
                     phoneText = "";
                     $("#phoneerror").css({"color": "green"});
                     document.getElementById("phoneerror").innerHTML = phoneText;
@@ -339,6 +373,7 @@
                             <div>
                                     <label for="username">*Username</label>
                                     <input type="text" id="username" name="username">
+                                    <p id="usernameerror"></p>
                             </div>
                             <div>
                                     <label for="name">*Name</label>
