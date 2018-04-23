@@ -22,7 +22,7 @@ class cartService {
     public function addItem($userID,$itemID,$quantity){
         try{
             $con=$this->connector->getConnection();
-            $num= $this->createCartItem($userID, $itemID, $quantity, $con);
+            $num= $this->addCartItem($userID, $itemID, $quantity, $con);
             if($num==1){
                 $con->commit();
             }
@@ -50,7 +50,7 @@ class cartService {
             $con=$this->connector->getConnection();
             $con->begin_transaction();
             $quantities= $this->changeQuantity($userID, $itemID, $quantity, $con);
-            $newQuantity=max([$quantities[2],$quantity]);
+            $newQuantity=min([$quantities[2],$quantity]);
             $num= $this->updateCartItem($userID, $itemID, $newQuantity, $con);
             if($num==1){
                 $con->commit();
@@ -101,10 +101,8 @@ class cartService {
         require_once 'itemDAO.php';
         $existing= $this->getQuantity($userID, $itemID, $con);
         $result= (new itemDAO())->selectByID($itemID, $con);
-        if(mysqli_num_rows($result)!=0){
-            while($row= mysqli_fetch_array($result,MYSQLI_ASSOC)){
-             $inventoryBound= $row["inventory"];
-            }
+        if(count($result)==1){
+            $inventoryBound= $result[0]->number;
         }
         $newQuantity=min([$quantity+$existing,$inventoryBound]);
         return [$newQuantity,$existing,$inventoryBound];
@@ -113,9 +111,7 @@ class cartService {
         if(is_array($cart)){
             $con= $this->connector->getConnection();
             foreach ($cart as $key => $value) {
-                if(array_key_exists($key, $itemQuantities)){
-                    $this->addCartItem($userID, $key, $value, $con);
-                }
+                $this->addCartItem($userID, $key, $value, $con);
             }
             return TRUE;
         }
