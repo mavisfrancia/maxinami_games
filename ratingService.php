@@ -47,6 +47,25 @@ class ratingService {
             $con->close();
         }
     }
+
+    function refreshItemRating($itemID) {
+        try{
+            $con=$this->connector->getConnection();
+
+            $rating=$this->ratingAccess->getItemAverage($itemID, $con);
+            $items= $this->itemAccess->selectByID($itemID, $con);
+            if (count($items) == 1) {
+                $items[0]->rating=$rating;
+            } else {
+                return FALSE;
+            }
+            $this->itemAccess->updateUsingItem($items[0], $con);
+        }
+        finally{
+            $con->close();
+        }
+    }
+
     function updateRating($userID,$itemID,$ratingVal,$comment){
         try{
             $con=$this->connector->getConnection();
