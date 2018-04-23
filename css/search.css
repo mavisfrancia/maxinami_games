@@ -16,8 +16,13 @@ and open the template in the editor.
     overflow-x: auto;
     overflow-y: hidden;
 }
+#pageNum{
+    background:none;
+    border:none;
+}
 #pageform{
     display:inline-block;
+    
 }
 
 #formid{
