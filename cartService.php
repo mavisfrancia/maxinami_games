@@ -71,7 +71,7 @@ class cartService {
     }
     private function addCartItem($userID,$itemID,$quantity,$con) {
             $quantities= $this->changeQuantity($userID, $itemID, $quantity, $con);
-            if($quantities[0]>0){
+            if($quantities[0]<=0){
                 $this->cartAccess->deleteCartItem($userID, $itemID, $con);
                 return 1;
             }

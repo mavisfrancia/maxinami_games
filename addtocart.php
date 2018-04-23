@@ -15,13 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 			$_SESSION['cart'] = [];
 		}
 		if (!isset($_SESSION['cart'][$itemid]) || $_SESSION['cart'][$itemid] == 0) { // create entry for item in cart if not created yet
-			$_SESSION['cart'][$itemid] = 0;
+			$_SESSION['cart'][$itemid] = 1;
 			// also create entry in database
-			$cartService->addItem($_SESSION['user_id'], $itemid, 0);
+			$cartService->addItem($_SESSION['user_id'], $itemid, 1);
 		}
-		// update quantity of item in cart and database
-		$_SESSION['cart'][$itemid] += 1;
-		$cartService->updateItem($_SESSION['user_id'], $itemid, $_SESSION['cart'][$itemid]);
+		else {
+			// update quantity of item in cart and database
+			$_SESSION['cart'][$itemid] += 1;
+			$cartService->updateItem($_SESSION['user_id'], $itemid, $_SESSION['cart'][$itemid]);
+		}
 		session_write_close();
 		
 		//var_dump($_SESSION['cart']);
