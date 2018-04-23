@@ -106,7 +106,7 @@
                   <label for="address">Address</label>
                   <input type="address" class="form-control" id="address" aria-describedby="address">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="city">City</label>
                   <input type="address" class="form-control" id="city" aria-describedby="city">
                 </div>
@@ -117,7 +117,7 @@
                 <div class="form-group">
                   <label for="zip-code">Zip Code</label>
                   <input type="address" class="form-control" id="zip-code" aria-describedby="zipCode">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" id="email" aria-describedby="address">
@@ -130,7 +130,7 @@
                   <label for="credit-card">Credit Card</label>
                   <input type="credit-card" class="form-control" id="credit-card" aria-describedby="createAccount">
                 </div>
-                <div class="form-group">
+                <div <?php echo (isset($_SESSION['user_id']) ? "hidden" : ""); ?> class="form-group">
                   <label for="create-account-check">Create Account</label>
                   <input type="checkbox" class="form-control" id="create-account-check" aria-describedby="createAccount">
                 </div>

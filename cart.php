@@ -149,7 +149,7 @@
                 <h2 id="subtotal-label">Subtotal:</h2>
                 <p id="subtotal-value">$<?php echo $subtotal; ?></p>
               </div>
-              <button type="button" class="btn btn-success btn-block">Checkout</button>
+              <button id="<?php echo (isset($_SESSION['user_name']) ? "checkout-btn" : "checkout-prompt-btn"); ?>" type="button" class="btn btn-success btn-block">Checkout</button>
               
               <?php
 

@@ -1,4 +1,43 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if ($_SERVER['REQUEST_METHOD'] != 'POST' ||
+      !isset($_POST['action']) ||
+      !isset($_POST['item-id']) ||
+      !isset($_SESSION['user_id']) ) {
+  header('Location: account.php');
+}
+
+require_once 'itemDAO.php';
+require_once 'databaseConnector.php';
+$db = new databaseConnector();
+$con = $db->getConnection();
+
+$itemDAO = new itemDAO();
+$items = $itemDAO->selectByID($_POST['item-id'], $con);
+if (count($items) == 1) {
+  $name = $items[0]->name;
+  $pictureLink=$items[0]->imageLink;
+} else {
+  header('Location: account.php'); // ERROR: duplicate item found
+}
+
+require_once 'ratingService.php';
+$ratingService = new ratingService();
+
+$hasReviewed = $ratingService->hasReviewed($_SESSION['user_id'], $_POST['item-id'], $con);
+if ($hasReviewed) {
+  $ratings = $ratingService->getRatings($_SESSION['user_id']);
+  while($row = mysqli_fetch_array($ratings, MYSQLI_ASSOC)) {
+    $id = $row['product_id'];
+    if ($id == $_POST['item-id']) {
+      $item_rating = $row['rating'];
+      $item_description = $row['description'];
+      break;
+    }
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,13 +128,14 @@
         
         <div class="col-lg-9">
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            <img class="card-img-top img-fluid" src="imgs/<?php echo $pictureLink; ?>" alt="">
               <div class="card-body">
-                <h1>Write a Review</h1>
-                <h3 class="card-title">Product Name</h3>
+                <h1><?php echo ($hasReviewed ? "Update " : "Write a "); ?> Review</h1>
+                <h3 class="card-title"><?php echo $name; ?></h3>
                 <hr>
 
                 <form action="#">
+                  <span id="item-id" hidden><?php echo $_POST['item-id']; ?></span>
                   <div class="form-group">
                     <h4>Rating:</h4>
                     <!--div class="input-group mb-3">
@@ -109,20 +149,20 @@
                     </div-->
                     <div class="input-group mb-3">
                       <select  class="custom-select" name="rating" id="rating">
-                        <option selected disabled hidden>Select a rating...</option>
-                        <option value="1">&#9733; &#9734; &#9734; &#9734; &#9734; (1 star)</option>
-                        <option value="2">&#9733; &#9733; &#9734; &#9734; &#9734; (2 stars)</option>
-                        <option value="3">&#9733; &#9733; &#9733; &#9734; &#9734; (3 stars)</option>
-                        <option value="4">&#9733; &#9733; &#9733; &#9733; &#9734; (4 stars)</option>
-                        <option value="5">&#9733; &#9733; &#9733; &#9733; &#9733; (5 stars)</option>
+                        <option <?php echo ($hasReviewed ? "" : "selected"); ?> disabled hidden>Select a rating...</option>
+                        <option <?php echo ($hasReviewed && $item_rating == 1? "selected" : ""); ?> value="1">&#9733; &#9734; &#9734; &#9734; &#9734; (1 star)</option>
+                        <option <?php echo ($hasReviewed && $item_rating == 2? "selected" : ""); ?> value="2">&#9733; &#9733; &#9734; &#9734; &#9734; (2 stars)</option>
+                        <option <?php echo ($hasReviewed && $item_rating == 3? "selected" : ""); ?> value="3">&#9733; &#9733; &#9733; &#9734; &#9734; (3 stars)</option>
+                        <option <?php echo ($hasReviewed && $item_rating == 4? "selected" : ""); ?> value="4">&#9733; &#9733; &#9733; &#9733; &#9734; (4 stars)</option>
+                        <option <?php echo ($hasReviewed && $item_rating == 5? "selected" : ""); ?> value="5">&#9733; &#9733; &#9733; &#9733; &#9733; (5 stars)</option>
                       </select>
                     </div>
                     
                     <h4>Review:</h4>
                     <div class="input-group">
-                      <textarea class="form-control" rows="6"></textarea>
+                      <textarea id="review-description" class="form-control" rows="6"><?php echo ($hasReviewed ? $item_description : ""); ?></textarea>
                     </div>
-                    <a href="#" class="btn btn-primary" id="submit-btn">Submit</a>
+                    <button type="submit" class="btn btn-primary" id="submit-btn"><?php echo ($hasReviewed ? "Update" : "Submit"); ?></button>
                   </div>
                 </form>
               </div>
@@ -153,6 +193,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/review.js"></script>
 
   </body>
 

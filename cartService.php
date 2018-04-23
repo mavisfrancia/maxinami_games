@@ -22,7 +22,7 @@ class cartService {
     public function addItem($userID,$itemID,$quantity){
         try{
             $con=$this->connector->getConnection();
-            $num= $this->addCartItem($userID, $itemID, $quantity, $con);
+            $num= $this->createCartItem($userID, $itemID, $quantity, $con);
             if($num==1){
                 $con->commit();
             }
@@ -66,7 +66,7 @@ class cartService {
         }
     }
     private function updateCartItem($userID,$itemID,$quantity,$con) {
-        $num= $this->cartAccess->updatePurchase($userID, $itemID, $userID, $itemID, $quantity, $con);
+        $num= $this->cartAccess->updatePurchase($userID, $itemID, $quantity, $con);
         return $num;
     }
     private function addCartItem($userID,$itemID,$quantity,$con) {
