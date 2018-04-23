@@ -25,8 +25,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 
 	}
 
+	function update_review() {
+		if(!isset($_POST['id']) ||
+			!isset($_POST['rating']) ||
+			!isset($_POST['description']) )
+		{
+			die("Error updating review.");
+		}
+
+		$userID = $_SESSION['user_id'];
+		$itemID = $_POST['id'];
+		$ratingVal = $_POST['rating'];
+		$comment = htmlentities($_POST['description']);
+
+		require_once 'ratingService.php';
+		$ratingService = new ratingService();
+
+		$ratingService->updateRating($userID,$itemID,$ratingVal,$comment);
+
+		exit("UID: $userID IID: $itemID R: $ratingVal C: $comment");
+
+	}
+
 	if ($_POST['action'] == 'add_review')
 		add_review();
+	elseif ($_POST['action'] == 'update_review')
+		update_review();
 	else
 		die();
 
