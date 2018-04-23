@@ -8,6 +8,7 @@ class ratingDAO {
     private $createSQL="INSERT INTO user_rating (user_id,product_id,rating,description) VALUES (?,?,?,?)";
     private $selectByUserSQL="SELECT * FROM user_rating WHERE user_id=?";
     private $selectByItemSQL="SELECT * FROM user_rating WHERE product_id=?";
+    private $selectByUserItem="SELECT * FROM user_rating WHERE user_id=? AND product_id=?";
     private $updateSQL="UPDATE user_rating SET user_id=?,product_id=?,rating=?,description=? WHERE user_id=? AND product_id=?";
     private $deleteSQL="DELETE FROM user_rating WHERE user_id=? AND product_id=?";
     private $itemRating="SELECT AVG(rating) FROM user_rating WHERE product_id=?";
@@ -16,7 +17,7 @@ class ratingDAO {
         $statement->bind_param("iids",$userID,$itemID,$rating,$description);
         $statement->execute();
         $statement->close();
-        return $id;
+        return $itemID; // Which ID is supposed to be returned?
     }
     
     function selectByUser($userId,$con){
@@ -31,6 +32,14 @@ class ratingDAO {
     function selectByItem($itemId,$con){
         $statement= mysqli_prepare($con, $this->selectByItemSQL);
         $statement->bind_param("i", $itemId);
+        $statement->execute();
+        $result=$statement->get_result();
+        $statement->close();
+        return $result;
+    }
+    function selectByUserItem($userId, $itemId,$con){
+        $statement= mysqli_prepare($con, $this->selectByUserItem);
+        $statement->bind_param("ii", $userId, $itemId);
         $statement->execute();
         $result=$statement->get_result();
         $statement->close();

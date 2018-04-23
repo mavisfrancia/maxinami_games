@@ -125,6 +125,10 @@ function getRatingStarString($rating) {
 
                 $product_id = (int)$_GET['id'];
 
+                require_once 'ratingService.php';
+                $ratingService = new ratingService();
+                $ratingService->refreshItemRating($product_id);
+
                 require_once 'databaseConnector.php';
                 require_once 'itemDAO.php';
                 $db = new databaseConnector();
@@ -168,7 +172,7 @@ function getRatingStarString($rating) {
               <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
               <?php 
               if ($product_avg_rating!=0){
-                  echo $product_avg_rating; ?> stars
+                  echo number_format((float)$product_avg_rating, 1, '.', ''); ?> stars
                   <?php
                   
               }

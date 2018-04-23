@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
 	}
 
 } else {
-	die(var_dump($_POST));
+	die();
 }
 
 ?>
