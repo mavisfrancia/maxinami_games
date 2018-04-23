@@ -65,5 +65,13 @@ $(document).ready(function() {
 
 	});
 
+	$("#checkout-btn").click(function() {
+		location.href = "checkout.php";
+	});
+
+	$("#checkout-prompt-btn").click(function() {
+		location.href = "signinorguest.php";
+	});
+
 });
 
