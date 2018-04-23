@@ -97,8 +97,8 @@
               <h1>Checkout</h1>
               <hr>
               
-              <button class="btn btn-primary btn-block">Sign In</button>
-              <button class="btn btn-secondary btn-block">Continue As Guest</button>
+              <button id="sign-in-btn" class="btn btn-primary btn-block">Sign In</button>
+              <button id="continue-guest-btn" class="btn btn-secondary btn-block">Continue As Guest</button>
 
               
             </div>
@@ -129,7 +129,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     
-    <script src="scripts/cart.js"></script>
+    <script src="scripts/signinorguest.js"></script>
 
   </body>
 
