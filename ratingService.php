@@ -1,8 +1,8 @@
 <?php
-require_once 'ratingDAO';
-require_once 'purchaseHistoryDAO';
-require_once 'itemDAO';
-require_once 'databaseConnector';
+require_once 'ratingDAO.php';
+require_once 'purchaseHistoryDAO.php';
+require_once 'itemDAO.php';
+require_once 'databaseConnector.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,13 +27,19 @@ class ratingService {
     }
     function addRating($userID,$itemID,$ratingVal,$comment){
         try{
+            echo("here");
             $con=$this->connector->getConnection();
             if($this->hasPurchased($userID, $itemID, $con)){
-                $this->ratingAccess->createRating($userID, $itemID, $rating, $description, $con);
+                echo("purchased");
+                $this->ratingAccess->createRating($userID, $itemID, $ratingVal, $comment, $con);
                 $rating=$this->ratingAccess->getItemAverage($itemID, $con);
-                $item= $this->itemAccess->selectByID($itemID, $con);
-                $item->rating=$rating;
-                $this->itemAccess->updateUsingItem($item, $con);
+                $items= $this->itemAccess->selectByID($itemID, $con);
+                if (count($items) == 1) {
+                    $items[0]->rating=$rating;
+                } else {
+                    return FALSE;
+                }
+                $this->itemAccess->updateUsingItem($items[0], $con);
             }
              else {
                  return FALSE;
@@ -46,6 +52,7 @@ class ratingService {
     private function hasPurchased($userID,$itemID,$con) {
         try{
             $result=$this->purchaseAccess->selectUserItem($userID, $itemID, $con);
+            echo(mysqli_num_rows($result));
             if(mysqli_num_rows($result)>0){
                 return TRUE;
             }

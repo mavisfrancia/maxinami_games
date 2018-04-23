@@ -16,7 +16,7 @@ class ratingDAO {
         $statement->bind_param("iids",$userID,$itemID,$rating,$description);
         $statement->execute();
         $statement->close();
-        return $id;
+        return $itemID; // Which ID is supposed to be returned?
     }
     
     function selectByUser($userId,$con){

@@ -1,4 +1,25 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if ($_SERVER['REQUEST_METHOD'] != 'POST' || !isset($_POST['action']) || !isset($_POST['item-id'])) {
+  header('Location: account.php');
+}
+
+require_once 'itemDAO.php';
+require_once 'databaseConnector.php';
+$db = new databaseConnector();
+$con = $db->getConnection();
+
+$itemDAO = new itemDAO();
+$items = $itemDAO->selectByID($_POST['item-id'], $con);
+if (count($items) == 1) {
+  $name = $items[0]->name;
+  $pictureLink=$items[0]->imageLink;
+} else {
+  header('Location: account.php'); // ERROR: duplicate item found
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,13 +110,14 @@
         
         <div class="col-lg-9">
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            <img class="card-img-top img-fluid" src="imgs/<?php echo $pictureLink; ?>" alt="">
               <div class="card-body">
                 <h1>Write a Review</h1>
-                <h3 class="card-title">Product Name</h3>
+                <h3 class="card-title"><?php echo $name; ?></h3>
                 <hr>
 
                 <form action="#">
+                  <span id="item-id" hidden><?php echo $_POST['item-id']; ?></span>
                   <div class="form-group">
                     <h4>Rating:</h4>
                     <!--div class="input-group mb-3">
@@ -120,9 +142,9 @@
                     
                     <h4>Review:</h4>
                     <div class="input-group">
-                      <textarea class="form-control" rows="6"></textarea>
+                      <textarea id="review-description" class="form-control" rows="6"></textarea>
                     </div>
-                    <a href="#" class="btn btn-primary" id="submit-btn">Submit</a>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
                   </div>
                 </form>
               </div>
@@ -153,6 +175,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/review.js"></script>
 
   </body>
 

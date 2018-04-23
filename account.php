@@ -160,15 +160,15 @@ if (!isset($_SESSION['user_status'])) {
                     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     ?> 
                     <tr>
-                        <?php
-                        $query = mysqli_query($con, "SELECT * FROM items WHERE itemid=".$row['product_id'].";");
-                        $product = mysqli_fetch_array($query, MYSQLI_ASSOC);
-                        ?>
-                        <td><?php echo $row['time_of_purchase']?></td>
-                        <td><?php echo $product['name']?></td>
+                      <?php
+                      $query = mysqli_query($con, "SELECT * FROM items WHERE itemid=".$row['product_id'].";");
+                      $product = mysqli_fetch_array($query, MYSQLI_ASSOC);
+                    ?><td class="item-id" hidden><?php echo $row['product_id']; ?></td>
+                      <td><?php echo $row['time_of_purchase']?></td>
+                      <td><?php echo $product['name']?></td>
                       <td><?php echo $row['quantity']?></td>
                       <td><?php echo $product['price']?></td>
-                      <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></button></td>
+                      <td><button type="button" class="btn btn-primary btn-sm review-btn"><i class="fa fa-pencil"></i></button></td>
                     </tr>
                         <?php
                         }
