@@ -19,15 +19,25 @@
     
     <script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
     <script type="text/javascript">
+     //This script stops new users from creating an account if either 
+     //all required fields are not entered or password and confirm password is mismatched
      $(document).ready(function(){
          
-         var usernameFilled = false;
-         var nameFilled = false;
-         var addressFilled = false;
-         var passwordFilled = false;
-         
+        //Create boolean variables
+        var usernameFilled = false;
+        var nameFilled = false;
+        var addressFilled = false;
+        var passwordFilled = false;
+        //This text contains the error of passwords mismatch
+        var text = "";
+        
+        //For number relation teet
+        var isNumber = /^[0-9]+$/;
+        
+        //For the username(email) field
         $("#username").keyup(function(){
             
+            //If the field is empty
             if($(this).val() === '')
             {
                 usernameFilled = false;
@@ -49,6 +59,7 @@
             }
         });  
         
+        //For the name field
         $("#name").keyup(function(){
             
             if($(this).val() === '')
@@ -70,8 +81,9 @@
             {
                 $("#userSubmit").prop("disabled", true);
             }
-        });  
+        });
         
+        //For the address field
         $("#address").keyup(function(){
             
             if($(this).val() === '')
@@ -93,17 +105,101 @@
             {
                 $("#userSubmit").prop("disabled", true);
             }            
-        });  
+        }); 
         
-        $("#password").keyup(function(){
+        //For phone field
+        $("#phone").keyup(function(){
+            var phoneText = "";
+            var phone = document.getElementById("phone").value;
             
             if($(this).val() === '')
+            {
+                //Check it all required fields are filled and enable/disable button if they
+                //are or are not respectively
+                if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+                {
+                    $("#userSubmit").prop("disabled", false);
+                }
+                else
+                {
+                    $("#userSubmit").prop("disabled", true);
+                } 
+            }
+            else
+            {
+                var isCorrect = isNumber.test(phone);
+                
+                //If phone number is invalid stop user from entering data
+                if(!isCorrect)
+                {
+                    phoneText = "Phone number can only consist of numbers";
+                    $("#phoneerror").css({"color": "red"});
+                    document.getElementById("phoneerror").innerHTML = phoneText;
+                    $("#userSubmit").prop("disabled", true);
+                }
+                else//Check to see if all required fields are filled
+                {
+                    phoneText = "";
+                    $("#phoneerror").css({"color": "green"});
+                    document.getElementById("phoneerror").innerHTML = phoneText;
+                    
+                    //Check it all required fields are filled and enable/disable button if they
+                    //are or are not respectively
+                    if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+                    {
+                        $("#userSubmit").prop("disabled", false);
+                    }
+                    else
+                    {
+                        $("#userSubmit").prop("disabled", true);
+                    } 
+                }
+            }
+        });
+        
+        //For the password field
+        $("#password").keyup(function(){
+            var pass = document.getElementById("password").value;
+            var confirm = document.getElementById("confirm").value;
+            var passverify = "";
+            
+            //Check password strength
+            if(pass.length > 0 && pass.length < 5)
+            {
+                passverify = "Password is weak";
+                $("#passverification").css({"color": "red"});
+                document.getElementById("passverification").innerHTML = passverify;
+            }
+            else if (pass.length >= 5)
+            {
+                passverify = "Password is strong";
+                $("#passverification").css({"color": "green"});
+                document.getElementById("passverification").innerHTML = passverify;
+            }
+            
+            
+            //If both password and confirm are filled check for match and
+            //change password filled to true if so or show error text if not
+            if(pass === "" || confirm === "")
             {
                 passwordFilled = false;
             }
             else
             {
-                passwordFilled = true;
+                //Test if confirm password is the same as password
+                if(pass === confirm)
+                {
+                    text = "";
+                    document.getElementById("test").innerHTML = text;
+                    passwordFilled = true;
+                }
+                else
+                {
+                    text = "Password and Confirm Password are different!";
+                    $("#test").css({"color": "red"});
+                    document.getElementById("test").innerHTML = text;
+                                       
+                }
             }
             
             //Check it all required fields are filled and enable/disable button if they
@@ -116,7 +212,49 @@
             {
                 $("#userSubmit").prop("disabled", true);
             }
-        });  
+
+            
+        }); 
+        
+        $("#confirm").keyup(function(){
+            var pass = document.getElementById("password").value;
+            var confirm = document.getElementById("confirm").value;
+            
+            //If both password and confirm are filled check for match and
+            //change password filled to true if so or show error text if not
+            if($(this).val() === '' || pass === "")
+            {
+                passwordFilled = false;
+            }
+            else
+            {
+                //Test if confirm password is the same as password
+                if(pass === confirm)
+                {
+                    text = "";
+                    document.getElementById("test").innerHTML = text;
+                    passwordFilled = true;
+                }
+                else
+                {
+                    text = "Password and Confirm Password are different!";
+                    $("#test").css({"color": "red"});
+                    document.getElementById("test").innerHTML = text;
+                    passwordFilled = false;
+                }
+            }
+            
+            //Check it all required fields are filled and enable/disable button if they
+            //are or are not respectively
+            if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+            {
+                $("#userSubmit").prop("disabled", false);
+            }
+            else
+            {
+                $("#userSubmit").prop("disabled", true);
+            }
+        });
             
         
      });
@@ -199,27 +337,29 @@
                     <form id="user_info" method="post" action="validate_create.php">
                         <div class="container">
                             <div>
-                                    <label for="username">Username</label>
+                                    <label for="username">*Username</label>
                                     <input type="text" id="username" name="username">
                             </div>
                             <div>
-                                    <label for="name">Name</label>
+                                    <label for="name">*Name</label>
                                     <input type="text" id="name" name="name">
                             </div>
                             <div>
-                                    <label for="name">Address</label>
+                                    <label for="name">*Address</label>
                                     <input type="text" id="address" name="address">
                             </div>
                             <div>
                                     <label for="name">Phone Number</label>
                                     <input type="text" id="phone" name="phone">
+                                    <p id="phoneerror"></p>
                             </div>
                             <div>
-                                    <label for="password">Password</label>
+                                    <label for="password">*Password</label>
                                     <input type="Password" id="password" name="password">
+                                    <p id="passverification"></p>
                             </div>
                             <div>
-                                    <label for="password">Confirm Password</label>
+                                    <label for="password">*Confirm Password</label>
                                     <input type="Password" id="confirm" name="confirm">
                             </div>
                             <div id="user_submit">
@@ -227,7 +367,8 @@
                             </div>
 
                             <div id="message">
-
+                                <p>*Required fields</p>
+                                <p id="test"></p>
                             </div>
                         </div>
                     </form>
