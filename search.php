@@ -131,44 +131,48 @@
              ?>
             <div id='page-buttons'>
               <?php     
+              echo "<form id='pageform' action = '' method = 'post'>";
             if($currentPage==1)  
-               echo "<button disabled>previous</button>";
+               echo "<button id='pageNum' disabled>previous</button>";
             else{
-                echo "<form action = '' method = 'post'>";
-               echo "<button name='pageNum' value='".($currentPage-1)."'>previous</button>";
-               echo "</form>";
+                
+               echo "<button name='pageNum' id='pageNum' value='".($currentPage-1)."'>previous</button>";
+               
             }
+            echo "</form>";
             
             for($i=1;$i<=$pages;$i++){
+                echo "<form id='pageform' action = '' method = 'post'>";
                 if($i==$currentPage)
-                    echo " <button disabled>".$i."</button>";
+                    echo " <button id='pageNum' disabled>".$i."</button>";
                 else{
-                    echo "<form action = '' method = 'post'>";
-                    echo " <button name='pageNum' value='".$i."'>".$i."</button>";
-                    echo "</form>";
+                    echo " <button id='pageNum' name='pageNum' value='".$i."'>".$i."</button>";
                 }
-            }
-            if($currentPage==$pages)
-                echo "<button disabled>next</button>";
-            else{
-                echo "<form action = '' method = 'post'>";
-                echo "<button name='pageNum' value='".($currentPage+1)."'>next</button>";
                 echo "</form>";
             }
+            echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==$pages)
+                echo "<button id='pageNum' disabled>next</button>";
+            else{
+                echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
+            }
+            echo "</form>";
             ?>
-        </div>
+        
            
             <form action="" id='formid' method="POST"> 
                     <label>items per page: </label>
                     <select name='perPage' id='perPage' onchange="$('#formid').submit()" >
-                        <option selected="selected" value='6'>6</option>
+                        <option value='6'>6</option>
                          <option value='12'>12</option>
                          <option value='18'>18</option>
                          <option value='all'>all</option>
                      </select> 
                     </form>
             
-         
+         </div>
+            <br/>
+           
             <div class="row">
               
                 <?php
@@ -190,7 +194,6 @@
                   <small class="text-muted">
                       <?php 
                       $rating=(int)$rows[$i]['rating'];
-                      
                       for($stars=5;$stars>0;$stars--){
                         if ($rating>0){
                             $rating--;
@@ -221,6 +224,34 @@
              
           </div>
           <!-- /.row -->
+           <?php     
+              echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==1)  
+               echo "<button id='pageNum' disabled>previous</button>";
+            else{
+                
+               echo "<button name='pageNum' id='pageNum' value='".($currentPage-1)."'>previous</button>";
+               
+            }
+            echo "</form>";
+            
+            for($i=1;$i<=$pages;$i++){
+                echo "<form id='pageform' action = '' method = 'post'>";
+                if($i==$currentPage)
+                    echo " <button id='pageNum' disabled>".$i."</button>";
+                else{
+                    echo " <button id='pageNum' name='pageNum' value='".$i."'>".$i."</button>";
+                }
+                echo "</form>";
+            }
+            echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==$pages)
+                echo "<button id='pageNum' disabled>next</button>";
+            else{
+                echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
+            }
+            echo "</form>";
+            ?>
         
         </div>
          <!-- /.col-lg-9 -->

@@ -8,5 +8,18 @@ and open the template in the editor.
     Author     : Xinhe
 */
 #page-buttons{
-    display:inline;
+    width: 100%;
+   
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+#pageform{
+    display:inline-block;
+}
+
+#formid{
+    float:right;
 }
