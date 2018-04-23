@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
 			header('Location: cart.php');
 		}
 		$_SESSION['cart'][$itemid] = $_POST['qty'];
-		$cartDAO->updateItemQuantity($_SESSION['user_id'],$itemid,$_POST['qty'],$con);
+		$cartDAO->updatePurchase($_SESSION['user_id'],$itemid,$_POST['qty'],$con);
 		session_write_close();
 		echo $_SESSION['cart'][$itemid];
 
