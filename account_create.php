@@ -16,6 +16,111 @@
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+    
+    <script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         
+         var usernameFilled = false;
+         var nameFilled = false;
+         var addressFilled = false;
+         var passwordFilled = false;
+         
+        $("#username").keyup(function(){
+            
+            if($(this).val() === '')
+            {
+                usernameFilled = false;
+            }
+            else
+            {
+                usernameFilled = true;
+            }
+            
+            //Check it all required fields are filled and enable/disable button if they
+            //are or are not respectively
+            if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+            {
+                $("#userSubmit").prop("disabled", false);
+            }
+            else
+            {
+                $("#userSubmit").prop("disabled", true);
+            }
+        });  
+        
+        $("#name").keyup(function(){
+            
+            if($(this).val() === '')
+            {
+                nameFilled = false;
+            }
+            else
+            {
+                nameFilled = true;
+            }
+            
+            //Check it all required fields are filled and enable/disable button if they
+            //are or are not respectively
+            if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+            {
+                $("#userSubmit").prop("disabled", false);
+            }
+            else
+            {
+                $("#userSubmit").prop("disabled", true);
+            }
+        });  
+        
+        $("#address").keyup(function(){
+            
+            if($(this).val() === '')
+            {
+                addressFilled = false;
+            }
+            else
+            {
+                addressFilled = true;
+            }
+            
+            //Check it all required fields are filled and enable/disable button if they
+            //are or are not respectively
+            if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+            {
+                $("#userSubmit").prop("disabled", false);
+            }
+            else
+            {
+                $("#userSubmit").prop("disabled", true);
+            }            
+        });  
+        
+        $("#password").keyup(function(){
+            
+            if($(this).val() === '')
+            {
+                passwordFilled = false;
+            }
+            else
+            {
+                passwordFilled = true;
+            }
+            
+            //Check it all required fields are filled and enable/disable button if they
+            //are or are not respectively
+            if(usernameFilled && nameFilled && addressFilled && passwordFilled)
+            {
+                $("#userSubmit").prop("disabled", false);
+            }
+            else
+            {
+                $("#userSubmit").prop("disabled", true);
+            }
+        });  
+            
+        
+     });
+    </script>
 
   </head>
 
@@ -118,7 +223,7 @@
                                     <input type="Password" id="confirm" name="confirm">
                             </div>
                             <div id="user_submit">
-                                    <button class="btn btn-primary" type="submit">Create Account</button>
+                                <button class="btn btn-primary" type="submit" id="userSubmit" class="enableSubmit" disabled="diabled">Create Account</button>
                             </div>
 
                             <div id="message">
