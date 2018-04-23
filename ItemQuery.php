@@ -5,7 +5,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of ItemQuery
  *
@@ -52,7 +51,7 @@ class ItemQuery {
         $s.=" AND rating >= \"". $this->ratingMin."\"";
         $s.= $this->priceSQL();
         foreach ($this->strings as $value){
-            $s.=" AND (name LIKE \"% ".$value."%\" OR description LIKE \"% ".$value."%\")";
+            $s.=" AND (name LIKE \"%".$value."%\" OR description LIKE \"%".$value."%\")";
         }
         $s.=" ORDER BY ".$this->order["orderValue"]." ".$this->order["direction"];
         return $s;
