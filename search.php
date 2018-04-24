@@ -1,4 +1,27 @@
-<?php session_start(); ?>
+<?php session_start(); 
+function getRatingStarString($rating) {
+  /*
+    1 star:  0    -  1.49999
+    2 star:  1.5  -  2.499999
+    3 star:  2.5. -  3.499999
+    4 star:  3.5  -  4.499999
+    5 star:  4.5  -  5
+  */
+  if($rating==0)
+      return "&#9734; &#9734; &#9734; &#9734; &#9734;";
+  else if ($rating < 1.5)
+    return "&#9733; &#9734; &#9734; &#9734; &#9734;";
+  else if ($rating < 2.5)
+    return "&#9733; &#9733; &#9734; &#9734; &#9734;";
+  else if ($rating < 3.5)
+    return "&#9733; &#9733; &#9733; &#9734; &#9734;";
+  else if ($rating < 4.5)
+    return "&#9733; &#9733; &#9733; &#9733; &#9734;";
+  else
+    return "&#9733; &#9733; &#9733; &#9733; &#9733;";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -191,25 +214,9 @@
                   <p class="card-text" id="description"><?php echo $rows[$i]['description']?></p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">
-                      <?php 
-                      $rating=(int)$rows[$i]['rating'];
-                      for($stars=5;$stars>0;$stars--){
-                        if ($rating>0){
-                            $rating--;
-                            
-                            ?>
-                        &#9733;
-                            <?php
-                        }
-                        else{
-                            ?>
-                            &#9734;
-                            <?php
-                        }
-                      }
-                      ?>
-                      </small>
+                  <small class="<?php echo ($rows[$i]['rating'] > 0 ? 'text-warning' : 'text-muted'); ?>">
+                      <?php echo getRatingStarString($rows[$i]['rating']); ?>
+                  </small>
                 </div>
               </div>
             </div>
@@ -273,7 +280,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/pages.js"></script>
+    <!-- <script src="scripts/pages.js"></script> -->
   </body>
 
 </html>
