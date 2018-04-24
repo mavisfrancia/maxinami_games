@@ -17,7 +17,11 @@
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
     <link href="css/search.css" rel="stylesheet">
-
+    <script type="text/javascript">
+    function itemsPerPage(val){
+        document.getElementById(val).selected = "true";
+    }
+    </script>
   </head>
 
   <body>
@@ -111,7 +115,9 @@
                 if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(isset($_POST['perPage']))
                     {
-                   
+                        ?>
+  
+            <?php
                     if ($_POST['perPage']=='all')
                         $total=$arraySize;
                     else
@@ -162,14 +168,15 @@
            
             <form action="" id='formid' method="POST"> 
                     <label>items per page: </label>
-                    <select name='perPage' id='perPage' onchange="$('#formid').submit()" >
-                        <option value='6'>6</option>
-                         <option value='12'>12</option>
-                         <option value='18'>18</option>
-                         <option value='all'>all</option>
+                    <select name='perPage' id='perPage' onchange="$('#formid').submit();" >
+                        <option id='6' value='6'>6</option>
+                        <option id='12' value='12'>12</option>
+                        <option id='18' value='18'>18</option>
+                        <option id='all' value='all'>all</option>
                      </select> 
                     </form>
-            
+                
+            <script>itemsPerPage(<?php if($_POST['perPage']=='all') echo "'all'"; else echo $itemsPerPage;?>)</script>
          </div>
             <br/>
            
@@ -273,7 +280,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/pages.js"></script>
+    <script src="scripts/items_per_page.js"></script>
   </body>
 
 </html>
