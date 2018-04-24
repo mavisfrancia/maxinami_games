@@ -80,17 +80,16 @@ function test_input($data){
 
 function load_cart() {
 	// Load cart from database
-	require_once 'databaseConnector.php';
-	require_once 'shoppingCartDAO.php';
-	$db = new databaseConnector();
-	$con = $db->getConnection();
-	$cartDAO = new shoppingCartDAO();
+	require_once 'cartService.php';
+	$cartService = new cartService();
 
 	if (!isset($_SESSION['cart'])) { // create cart if not created yet
 		$_SESSION['cart'] = [];
 	}
 
-	$result = $cartDAO->selectByUser($_SESSION['user_id'],$con);
+	$cartService->moveCartToUser($_SESSION['user_id'],$_SESSION['cart']);
+
+	$result = $cartService->getCart($_SESSION['user_id']);
 
 	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$itemid = $row['product_id'];

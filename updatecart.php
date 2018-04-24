@@ -6,17 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
 
 	// User is logged in, store in session and database
 	if (isset($_SESSION['user_name'])) {
-		require_once 'databaseConnector.php';
-	    require_once 'shoppingCartDAO.php';
-	    $db = new databaseConnector();
-	    $con = $db->getConnection();
-	    $cartDAO = new shoppingCartDAO();
+		require_once 'cartService.php';
+	    $cartService = new cartService();
 	    
 		if (!isset($_SESSION['cart']) || !isset($_SESSION['cart'][$itemid])) {
 			header('Location: cart.php');
 		}
 		$_SESSION['cart'][$itemid] = $_POST['qty'];
-		$cartDAO->updatePurchase($_SESSION['user_id'],$itemid,$_POST['qty'],$con);
+		$cartService->updateItem($_SESSION['user_id'],$itemid,$_POST['qty']);
 		session_write_close();
 		echo $_SESSION['cart'][$itemid];
 

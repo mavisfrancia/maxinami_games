@@ -1,4 +1,27 @@
-<?php session_start(); ?>
+<?php session_start(); 
+function getRatingStarString($rating) {
+  /*
+    1 star:  0    -  1.49999
+    2 star:  1.5  -  2.499999
+    3 star:  2.5. -  3.499999
+    4 star:  3.5  -  4.499999
+    5 star:  4.5  -  5
+  */
+  if($rating==0)
+      return "&#9734; &#9734; &#9734; &#9734; &#9734;";
+  else if ($rating < 1.5)
+    return "&#9733; &#9734; &#9734; &#9734; &#9734;";
+  else if ($rating < 2.5)
+    return "&#9733; &#9733; &#9734; &#9734; &#9734;";
+  else if ($rating < 3.5)
+    return "&#9733; &#9733; &#9733; &#9734; &#9734;";
+  else if ($rating < 4.5)
+    return "&#9733; &#9733; &#9733; &#9733; &#9734;";
+  else
+    return "&#9733; &#9733; &#9733; &#9733; &#9733;";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +39,12 @@
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
-
+    <link href="css/search.css" rel="stylesheet">
+    <script type="text/javascript">
+    function itemsPerPage(val){
+        document.getElementById(val).selected = "true";
+    }
+    </script>
   </head>
 
   <body>
@@ -88,62 +116,157 @@
         <div class="col-lg-9">
             <br>
             <br>
-            <div class="row">
-              <?php
+            <?php
                 $search=$_GET['search_item'];
                 include_once 'itemService.php';
                 $service=new itemService();
                 $result = $service->searchItem($search);
+                
                 if(mysqli_num_rows($result)== 0){
                     echo "no results found";
                 }
                 else{
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){                
+                    $rows=array();
+                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){     
+                    $rows[]=$row;
+                }
+                $arraySize=sizeof($rows);
+                include 'pages.php';
+                $page = new pages();
+                $page->setArraySize($arraySize);
+               $currentPage=$page->getCurrentPage();
+                if ($_SERVER["REQUEST_METHOD"] == "POST"){
+                    if(isset($_POST['perPage']))
+                    {
+                        ?>
+  
+            <?php
+                    if ($_POST['perPage']=='all')
+                        $total=$arraySize;
+                    else
+                        $total=$_POST['perPage'];
+                    
+                    $page->setItemsPerPage($total);  
+                    
+                    }
+                    if(isset($_POST['pageNum'])){
+                        $page->setCurrentPage((int)($_POST['pageNum']));
+                        
+                    }
+                }
+                $currentPage=$page->getCurrentPage();
+                $pages=$page->setPages();
+                $itemsPerPage = $page->getItemsPerPage();
+             ?>
+            <div id='page-buttons'>
+              <?php     
+              echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==1)  
+               echo "<button id='pageNum' disabled>previous</button>";
+            else{
+                
+               echo "<button name='pageNum' id='pageNum' value='".($currentPage-1)."'>previous</button>";
+               
+            }
+            echo "</form>";
+            
+            for($i=1;$i<=$pages;$i++){
+                echo "<form id='pageform' action = '' method = 'post'>";
+                if($i==$currentPage)
+                    echo " <button id='pageNum' disabled>".$i."</button>";
+                else{
+                    echo " <button id='pageNum' name='pageNum' value='".$i."'>".$i."</button>";
+                }
+                echo "</form>";
+            }
+            echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==$pages)
+                echo "<button id='pageNum' disabled>next</button>";
+            else{
+                echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
+            }
+            echo "</form>";
+            ?>
+        
+           
+            <form action="" id='formid' method="POST"> 
+                    <label>items per page: </label>
+                    <select name='perPage' id='perPage' onchange="$('#formid').submit();" >
+                        <option id='6' value='6'>6</option>
+                        <option id='12' value='12'>12</option>
+                        <option id='18' value='18'>18</option>
+                        <option id='all' value='all'>all</option>
+                     </select> 
+                    </form>
+                
+            <script>itemsPerPage(<?php if($_POST['perPage']=='all') echo "'all'"; else echo $itemsPerPage;?>)</script>
+         </div>
+            <br/>
+           
+            <div class="row">
+              
+                <?php
+                
+                for($i=($currentPage-1)*$itemsPerPage;$i<$currentPage*$itemsPerPage&&$i<$arraySize;$i++){
+                    
             ?>  
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><img class="card-img-top" src=<?php echo 'imgs/'.$row['pictureLink']?> alt=""></a>
+                <a href=<?php echo "product.php?action=get_product&id=" . $rows[$i]["itemid"] ?>><img class="card-img-top" src=<?php echo 'imgs/'.$rows[$i]['pictureLink']?> alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href=<?php echo "product.php?action=get_product&id=" . $row["itemid"] ?>><?php echo $row['name']?></a>
+                    <a href=<?php echo "product.php?action=get_product&id=" . $rows[$i]["itemid"] ?>><?php echo $rows[$i]['name']?></a>
                   </h4>
-                  <h5><?php echo $row['price']?></h5>
-                  <p class="card-text" id="description"><?php echo $row['description']?></p>
+                  <h5>$<?php echo number_format($rows[$i]['price'], 2, '.', '');?></h5>
+                  <p class="card-text" id="description"><?php echo $rows[$i]['description']?></p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">
-                      <?php 
-                      $rating=(int)$row['rating'];
-                      
-                      for($stars=5;$stars>0;$stars--){
-                        if ($rating>0){
-                            $rating--;
-                            
-                            ?>
-                        &#9733;
-                            <?php
-                        }
-                        else{
-                            ?>
-                            &#9734;
-                            <?php
-                        }
-                      }
-                      ?>
-                      </small>
+                  <small class="<?php echo ($rows[$i]['rating'] > 0 ? 'text-warning' : 'text-muted'); ?>">
+                      <?php echo getRatingStarString($rows[$i]['rating']); ?>
+                  </small>
                 </div>
               </div>
             </div>
 
               <?php
                 }
-                            }
+                }
+                            
                            
               ?>
-
+                    
              
           </div>
           <!-- /.row -->
+           <?php     
+              echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==1)  
+               echo "<button id='pageNum' disabled>previous</button>";
+            else{
+                
+               echo "<button name='pageNum' id='pageNum' value='".($currentPage-1)."'>previous</button>";
+               
+            }
+            echo "</form>";
+            
+            for($i=1;$i<=$pages;$i++){
+                echo "<form id='pageform' action = '' method = 'post'>";
+                if($i==$currentPage)
+                    echo " <button id='pageNum' disabled>".$i."</button>";
+                else{
+                    echo " <button id='pageNum' name='pageNum' value='".$i."'>".$i."</button>";
+                }
+                echo "</form>";
+            }
+            echo "<form id='pageform' action = '' method = 'post'>";
+            if($currentPage==$pages)
+                echo "<button id='pageNum' disabled>next</button>";
+            else{
+                echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
+            }
+            echo "</form>";
+            ?>
+        
         </div>
          <!-- /.col-lg-9 -->
 
@@ -164,7 +287,11 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<<<<<<< HEAD
+    <script src="scripts/items_per_page.js"></script>
+=======
+    <!-- <script src="scripts/pages.js"></script> -->
+>>>>>>> 20ee2900561571fb861b8f920d1bb53020f8d354
   </body>
 
 </html>
