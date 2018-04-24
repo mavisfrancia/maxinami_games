@@ -6,13 +6,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	require_once 'purchaseService.php';
     $purchaseService = new purchaseService();
 
-	var_dump($_POST);
-
 	// Check out as user
 	if (isset($_SESSION['user_name'])) {
 		$result = $purchaseService->userPurchase($_SESSION['user_id']);
 		if ($result) {
 			unset($_SESSION['cart']);
+			session_write_close();
+			header('Location: confirmation.php');
+		} else {
+			die("Something went wrong");
 		}
 	}
 
@@ -97,12 +99,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['address'] = $address;
                 $_SESSION['user_id'] = $id;
 
-                session_write_close();
-
+                load_cart();
+                
                 $result = $purchaseService->userPurchase($_SESSION['user_id']);
 	            if ($result) {
 					unset($_SESSION['cart']);
+					header('Location: confirmation.php');
+				} else {
+					die("Something went wrong");
 				}
+				session_write_close();
             }
             else
             {
@@ -119,6 +125,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$result = $purchaseService->anonymousPurchase($_SESSION['cart']);
 		if ($result) {
 			unset($_SESSION['cart']);
+			session_write_close();
+			header('Location: confirmation.php');
+		} else {
+			die("Something went wrong");
 		}
 	}
 		
@@ -131,6 +141,26 @@ function test_input($data){
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
 	return $data;
+}
+
+function load_cart() {
+	// Load cart from database
+	require_once 'cartService.php';
+	$cartService = new cartService();
+
+	if (!isset($_SESSION['cart'])) { // create cart if not created yet
+		$_SESSION['cart'] = [];
+	}
+
+	$cartService->moveCartToUser($_SESSION['user_id'],$_SESSION['cart']);
+
+	$result = $cartService->getCart($_SESSION['user_id']);
+
+	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		$itemid = $row['product_id'];
+		$quantity = $row['quantity'];
+		$_SESSION['cart'][$itemid] = $quantity;
+	}
 }
 
 
