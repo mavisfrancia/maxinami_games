@@ -180,7 +180,7 @@ function getRatingStarString($rating) {
                     $rows= sortByRating($_POST['rating'], $rows);
                 }
                 ?>
-            <form id='priceSort' action = '' method = 'post'>Price Ranges &emsp;&emsp;
+            <form id='priceSort' action = '' method = 'post'>Price Ranges &emsp;&emsp;&emsp;
                 <button name='price' id='price' value='0to10'>&ensp;$0-$9.99 &emsp;</button>
                 <button name='price' id='price' value='10to20'>&ensp;$10-$19.99 &emsp;</button>
                 <button name='price' id='price' value='20to40'>&ensp;$20-$39.99 &emsp;</button>
@@ -188,12 +188,12 @@ function getRatingStarString($rating) {
                 <button name='price' id='price' value='70up'>&ensp;above $70</button>
             </form>
             <br/>
-            <form id='ratingSort' action = '' method = 'post'>Rating &emsp;&emsp;&emsp;&emsp;&emsp;
-                <button name='rating' id='rating' value='1'>&ensp;above 1 &emsp;&emsp;&emsp;</button>
-                <button name='rating' id='rating' value='2'>&ensp;above 2 &emsp;&emsp;&emsp;</button>
-                <button name='rating' id='rating' value='3'>&ensp;above 3 &emsp;&emsp;&emsp;</button>
-                <button name='rating' id='rating' value='4'>&ensp;above 4 &emsp;&emsp;&emsp;</button>
-                <button name='rating' id='rating' value='5'>&ensp;5</button>
+            <form id='ratingSort' action = '' method = 'post'>Minimum Rating &emsp;
+                <button name='rating' id='rating' value='1'>&ensp;&#9733;&#9734;&#9734;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='2'>&ensp;&#9733;&#9733;&#9734;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='3'>&ensp;&#9733;&#9733;&#9733;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='4'>&ensp;&#9733;&#9733;&#9733;&#9733;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='5'>&ensp;&#9733;&#9733;&#9733;&#9733;&#9733;</button>
             </form>
             <br/>
                 <?php
