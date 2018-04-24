@@ -130,6 +130,73 @@ function getRatingStarString($rating) {
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){     
                     $rows[]=$row;
                 }
+                if(isset($_POST['price'])){
+                    if($_POST['price']=='0to10'){
+                        $min=0;
+                        $max=9.99;
+                    }
+                    elseif($_POST['price']=='10to20'){
+                        $min=10;
+                        $max=19.99;
+                    }
+                    elseif($_POST['price']=='20to40'){
+                        $min=20;
+                        $max=39.99;
+                    }
+                    elseif($_POST['price']=='40to70'){
+                        $min=40;
+                        $max=69.99;
+                    }
+                    elseif($_POST['price']=='70up'){
+                        $min=70;
+                        $max=PHP_FLOAT_MAX;
+                    }
+                    include_once 'sort_item.php';
+                    $rows= sortByPrice($min, $max, $rows);
+                }
+                
+                if(isset($_POST['rating'])){
+                    if($_POST['rating']=='1'){
+                        $min=0;
+                        $max=1;
+                    }
+                    elseif($_POST['rating']=='2'){
+                        $min=1;
+                        $max=2;
+                    }
+                    elseif($_POST['rating']=='3'){
+                        $min=2;
+                        $max=3;
+                    }
+                    elseif($_POST['rating']=='4'){
+                        $min=4;
+                        $max=5;
+                    }
+                    elseif($_POST['rating']=='5'){
+                        $min=70;
+                        $max=PHP_FLOAT_MAX;
+                    }
+                    include_once 'sort_item.php';
+                    $rows= sortByRating($_POST['rating'], $rows);
+                }
+                ?>
+            <form id='priceSort' action = '' method = 'post'>Price Ranges &emsp;&emsp;
+                <button name='price' id='price' value='0to10'>&ensp;$0-$9.99 &emsp;</button>
+                <button name='price' id='price' value='10to20'>&ensp;$10-$19.99 &emsp;</button>
+                <button name='price' id='price' value='20to40'>&ensp;$20-$39.99 &emsp;</button>
+                <button name='price' id='price' value='40to70'>&ensp;$40-$69.99 &emsp;</button>
+                <button name='price' id='price' value='70up'>&ensp;above $70</button>
+            </form>
+            <br/>
+            <form id='ratingSort' action = '' method = 'post'>Rating &emsp;&emsp;&emsp;&emsp;&emsp;
+                <button name='rating' id='rating' value='1'>&ensp;above 1 &emsp;&emsp;&emsp;</button>
+                <button name='rating' id='rating' value='2'>&ensp;above 2 &emsp;&emsp;&emsp;</button>
+                <button name='rating' id='rating' value='3'>&ensp;above 3 &emsp;&emsp;&emsp;</button>
+                <button name='rating' id='rating' value='4'>&ensp;above 4 &emsp;&emsp;&emsp;</button>
+                <button name='rating' id='rating' value='5'>&ensp;5</button>
+            </form>
+            <br/>
+                <?php
                 $arraySize=sizeof($rows);
                 include 'pages.php';
                 $page = new pages();
@@ -138,16 +205,11 @@ function getRatingStarString($rating) {
                 if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(isset($_POST['perPage']))
                     {
-                        ?>
-  
-            <?php
                     if ($_POST['perPage']=='all')
                         $total=$arraySize;
                     else
-                        $total=$_POST['perPage'];
-                    
-                    $page->setItemsPerPage($total);  
-                    
+                        $total=$_POST['perPage'];  
+                    $page->setItemsPerPage($total);           
                     }
                     if(isset($_POST['pageNum'])){
                         $page->setCurrentPage((int)($_POST['pageNum']));
@@ -160,6 +222,9 @@ function getRatingStarString($rating) {
              ?>
             <div id='page-buttons'>
               <?php     
+              if(sizeof($rows)==0)
+                    echo  "no results found";
+                else{
               echo "<form id='pageform' action = '' method = 'post'>";
             if($currentPage==1)  
                echo "<button id='pageNum' disabled>previous</button>";
@@ -230,7 +295,8 @@ function getRatingStarString($rating) {
 
               <?php
                 }
-                }
+                
+                
                             
                            
               ?>
@@ -265,6 +331,8 @@ function getRatingStarString($rating) {
                 echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
             }
             echo "</form>";
+                }
+                }
             ?>
         
         </div>
@@ -287,11 +355,11 @@ function getRatingStarString($rating) {
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<<<<<<< HEAD
-    <script src="scripts/items_per_page.js"></script>
-=======
+
+
+
     <!-- <script src="scripts/pages.js"></script> -->
->>>>>>> 20ee2900561571fb861b8f920d1bb53020f8d354
+
   </body>
 
 </html>
