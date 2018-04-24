@@ -20,9 +20,33 @@ and open the template in the editor.
     background:none;
     border:none;
 }
+#pageNum:hover{
+    color:grey;
+}
 #pageform{
     display:inline-block;
     
+}
+#price{
+    background:none;
+    border:none;
+}
+#price:hover{
+    color:grey;
+}
+#price:selected{
+    color:gray;
+}
+
+#rating{
+    background:none;
+    border:none;
+}
+#rating:hover{
+    color:grey;
+}
+#rating:selected{
+    color:gray;
 }
 
 #formid{
