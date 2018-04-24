@@ -9,7 +9,7 @@ class userDAO {
     private $createSQL="INSERT INTO users (username,fullname,address,hashedpass,phonenumber,status) VALUES (?,?,?,?,?,?)";
     private $selectByIdSQL="SELECT * FROM users WHERE user_id=?";
     private $selectByUsernameSQL="SELECT user_id, username, hashedpass FROM users WHERE username=?";
-    private $updateSQL="UPDATE users SET username=?,fullname=?,address=?,hassedpass=?,phonenumber=?,status=? WHERE user_id=?";
+    private $updateSQL="UPDATE users SET username=?, fullname=?, address=?, hashedpass=?, phonenumber=?, status=? WHERE user_id=?";
     private $deleteSQL="DELETE FROM users WHERE user_id=?";
     function createUser($email,$name,$address,$password,$phoneNum,$status,$con) {
         $statement=mysqli_prepare($con, $this->createSQL);

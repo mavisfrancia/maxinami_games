@@ -39,24 +39,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 	else{
 		$password = test_input($_POST["password"]);
-	}
-        
-        if(empty($_POST["confirm"])){
+                
+                if(empty($_POST["confirm"])){
 		
-	}
-	else{
-		$confirm = test_input($_POST["confirm"]);
+                }
+                else{
+                    
+                    $confirm = test_input($_POST["confirm"]);
+                    
+                    //Test if confirm password is the same as password and the passsword is changed
+                    if(strcmp($password, $confirm))
+                    {
+                        $ERR = "Password and Confirm Password are different!";
+                    }
+                }
 	}
         
-        //Test if confirm password is the same as password and the passsword is changed
-        if(strcmp($password, $confirm) && !empty($_POST["password"]))
-        {
-            $ERR = "Password and Confirm Password are different!";
-        }
+        
+        
+        
 	
         //If required fields are empty or passwords are different, return to account create
 	if(!empty($ERR)){
-		header('Location: account_create.php');
+		header('Location: account_edit.php');
 		exit();
 	}
 	else{
@@ -75,11 +80,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             
             
-            $user_status = $row['status'];
+            $username = $row["username"];
             $fullname = $row['fullname'];
             $address = $row['address'];
             $phone = $row['phonenumber'];
             $password = $row['hashedpass'];
+            $status = $row['status'];
+            
+            
                 
             //Change variables if there is a change
             if(!empty($_POST["name"]))
@@ -100,28 +108,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if(!empty($_POST["password"]))
             {   
-                $password = $_POST['password'];
-
                 //Encrypt password
-                $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
             }
-
-
-
-            session_regenerate_id();
-            $_SESSION['user_status'] = $user_status;
-            $_SESSION['fullname'] = $fullname;
-            $_SESSION['phone'] = $phone;
-            $_SESSION['address'] = $address;
             
+            echo $username, $fullname, $password, $address, $phone, $status ."<br />";
 
-
-
-
-            session_write_close();
-            header('Location: index.php');
+            //Update user info
+            $update = $userService->updateInfo($id, $username, $fullname, $address, $password, $phone, $status);
             
-           
+            //If update did not succeed, give error
+            if(!$update)
+            {
+                echo "Fatal Error: Update did not complete";
+            }
+            else
+            {
+                session_regenerate_id();
+                $_SESSION['user_name'] = $username;
+                $_SESSION['fullname'] = $fullname;
+                $_SESSION['phone'] = $phone;
+                $_SESSION['user_status'] = $status;
+                $_SESSION['address'] = $address;
+                $_SESSION['user_id'] = $id;
+
+
+
+                session_write_close();
+                header('Location: index.php');
+            }
 	}
 }
 

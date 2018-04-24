@@ -71,9 +71,19 @@ class userService {
             $con->begin_transaction();
             $result= $this->userAccess->updateUser($id, $email, $name, $address, $password, $phoneNum, $status, $con);
             if($result!=1){
-                $con->rollback();
-                echo "An error has occured while updating your info";
-                return false;
+                //If there was no change return true anyways
+                if($result == 0)
+                {
+                    echo "There was no change";
+                    return true;
+                }
+                else
+                {
+                    //If there was an error
+                    $con->rollback();
+                    echo "An error has occured while updating your info";
+                    return false;
+                }
             }
             else{
                 $con->commit();
@@ -83,7 +93,6 @@ class userService {
             
         }
         finally {
-            mysqli_free_result($result);
             $con->close();
         }
     }

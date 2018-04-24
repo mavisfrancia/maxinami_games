@@ -193,21 +193,87 @@
         
         //For the password field
         $("#password").keyup(function(){
+            //Get strings for both confirm and password
             var pass = document.getElementById("password").value;
             var confirm = document.getElementById("confirm").value;
+            //Contains the text for password strength
             var passverify = "";
+            //Determines the strength of the password
+            var passStrength = 0;
+            var hasNumber = false;
+            var hasLetter = false;
+            var hasSpecial = false;
+            var hasLength = false;
             
-            //Check password strength
-            if(pass.length > 0 && pass.length < 5)
+            //Create test variables
+            if(pass.search(/^[0-9]*$/))//Check For numbers
+            {
+                hasNumber = true;
+            }
+            else
+            {
+                hasNumber = false;
+            }
+            if(pass.search(/^[a-z]*$/i))//Check for lower case
+            {
+                hasLetter = true;
+            }
+            else
+            {
+                hasLetter = false;
+            }
+            if(pass.search(/^[!@#\$%\^&\*]*$/)) //check for special characters
+            {
+                hasSpecial = true;
+            }
+            else
+            {
+                hasSpecial = false;
+            }
+            if (pass.length >= 5)//Check for length
+            {
+                hasLength = true;
+            }
+            else
+            {
+                hasLength = false;
+            }
+            if(hasLetter)
+                passStrength += 1;
+            else
+                passStrength -= 1;
+            if(hasNumber)
+                passStrength += 1;
+            else
+                passStrength -= 1;
+            if(hasSpecial)
+                passStrength += 1;
+            else
+                passStrength -= 1;
+            if(hasLength)
+                passStrength += 1;
+            else
+                passStrength -= 1;
+            
+            //Show password strength
+            if(passStrength <= 2)
             {
                 passverify = "Password is weak";
                 $("#passverification").css({"color": "red"});
                 document.getElementById("passverification").innerHTML = passverify;
             }
-            else if (pass.length >= 5)
+            else
             {
                 passverify = "Password is strong";
                 $("#passverification").css({"color": "green"});
+                document.getElementById("passverification").innerHTML = passverify;
+            }
+            
+            if (pass === "")
+            {
+                //Empty Text
+                passverify = "";
+                $("#passverification").css({"color": "red"});
                 document.getElementById("passverification").innerHTML = passverify;
             }
             
@@ -217,6 +283,8 @@
             if(pass === "" || confirm === "")
             {
                 passwordFilled = false;
+                
+                
             }
             else
             {
