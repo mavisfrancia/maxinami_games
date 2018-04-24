@@ -169,7 +169,7 @@ function getRatingStarString($rating) {
               <h3 class="card-title"><?php echo $product_name; ?></h3>
               <h4>$<?php echo number_format((float)$product_price, 2, '.', ''); ?></h4>
               <p class="card-text line-breaks-wrap"><?php echo $product_description; ?></p>
-              <span id="product-avg-rating" class="text-warning"><?php echo $product_rating_string; ?></span>
+              <span id="product-avg-rating" class="<?php echo ($product_avg_rating > 0 ? 'text-warning' : 'text-muted'); ?>"><?php echo $product_rating_string; ?></span>
               <?php 
               if ($product_avg_rating!=0){
                   echo number_format((float)$product_avg_rating, 1, '.', ''); ?> stars

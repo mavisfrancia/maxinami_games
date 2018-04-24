@@ -25,14 +25,14 @@ $(document).ready(function() {
 
   		var form = "<form method='post' action='review.php'>";
   		form += "<input type='hidden' name='item-id' value='" + item_id + "'>";
-  		form += "<input type='hidden' name='action' value='add_review'>";
+  		form += "<input type='hidden' name='action' value='add_review'></form>";
 
   		$(form).appendTo($(document.body)).submit();
 
 
 
 
-	})
+	});
 
 
 
