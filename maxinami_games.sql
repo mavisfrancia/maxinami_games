@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 10:21 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Host: localhost
+-- Generation Time: Apr 24, 2018 at 03:14 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -98,8 +98,8 @@ CREATE TABLE `purchase_history` (
 --
 
 INSERT INTO `purchase_history` (`user_id`, `product_id`, `quantity`, `time_of_purchase`) VALUES
-(4, 20, 2, '2018-04-04 00:00:00'),
 (4, 19, 4, '2018-04-07 00:00:00'),
+(4, 20, 2, '2018-04-04 00:00:00'),
 (4, 26, 1, '2018-04-17 00:00:00');
 
 -- --------------------------------------------------------
@@ -183,6 +183,7 @@ ALTER TABLE `items`
 -- Indexes for table `purchase_history`
 --
 ALTER TABLE `purchase_history`
+  ADD PRIMARY KEY (`user_id`,`product_id`,`time_of_purchase`),
   ADD KEY `item_constraint` (`product_id`),
   ADD KEY `user_constraint` (`user_id`);
 
@@ -202,6 +203,7 @@ ALTER TABLE `users`
 -- Indexes for table `user_rating`
 --
 ALTER TABLE `user_rating`
+  ADD PRIMARY KEY (`user_id`,`product_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
 
