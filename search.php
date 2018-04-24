@@ -130,6 +130,76 @@ function getRatingStarString($rating) {
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){     
                     $rows[]=$row;
                 }
+<<<<<<< HEAD
+=======
+                if(isset($_POST['price'])){
+                    if($_POST['price']=='0to10'){
+                        $min=0;
+                        $max=9.99;
+                    }
+                    elseif($_POST['price']=='10to20'){
+                        $min=10;
+                        $max=19.99;
+                    }
+                    elseif($_POST['price']=='20to40'){
+                        $min=20;
+                        $max=39.99;
+                    }
+                    elseif($_POST['price']=='40to70'){
+                        $min=40;
+                        $max=69.99;
+                    }
+                    elseif($_POST['price']=='70up'){
+                        $min=70;
+                        $max=PHP_FLOAT_MAX;
+                    }
+                    include_once 'sort_item.php';
+                    $rows= sortByPrice($min, $max, $rows);
+                }
+                
+                if(isset($_POST['rating'])){
+                    if($_POST['rating']=='1'){
+                        $min=0;
+                        $max=1;
+                    }
+                    elseif($_POST['rating']=='2'){
+                        $min=1;
+                        $max=2;
+                    }
+                    elseif($_POST['rating']=='3'){
+                        $min=2;
+                        $max=3;
+                    }
+                    elseif($_POST['rating']=='4'){
+                        $min=4;
+                        $max=5;
+                    }
+                    elseif($_POST['rating']=='5'){
+                        $min=70;
+                        $max=PHP_FLOAT_MAX;
+                    }
+                    include_once 'sort_item.php';
+                    $rows= sortByRating($_POST['rating'], $rows);
+                }
+                ?>
+            <form id='priceSort' action = '' method = 'post'>Price Ranges &emsp;&emsp;&emsp;
+                <button name='price' id='price' value='0to10'>&ensp;$0-$9.99 &emsp;</button>
+                <button name='price' id='price' value='10to20'>&ensp;$10-$19.99 &emsp;</button>
+                <button name='price' id='price' value='20to40'>&ensp;$20-$39.99 &emsp;</button>
+                <button name='price' id='price' value='40to70'>&ensp;$40-$69.99 &emsp;</button>
+                <button name='price' id='price' value='70up'>&ensp;above $70</button>
+            </form>
+            <br/>
+            <form id='ratingSort' action = '' method = 'post'>Minimum Rating &emsp;
+                <button name='rating' id='rating' value='1'>&ensp;&#9733;&#9734;&#9734;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='2'>&ensp;&#9733;&#9733;&#9734;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='3'>&ensp;&#9733;&#9733;&#9733;&#9734;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='4'>&ensp;&#9733;&#9733;&#9733;&#9733;&#9734; &emsp;&emsp;</button>
+                <button name='rating' id='rating' value='5'>&ensp;&#9733;&#9733;&#9733;&#9733;&#9733;</button>
+            </form>
+            <br/>
+                <?php
+>>>>>>> d69d4673bf6d0b67dc1d8eaeb2cf84790cd53b0c
                 $arraySize=sizeof($rows);
                 include 'pages.php';
                 $page = new pages();
