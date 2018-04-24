@@ -130,6 +130,8 @@ function getRatingStarString($rating) {
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){     
                     $rows[]=$row;
                 }
+<<<<<<< HEAD
+=======
                 if(isset($_POST['price'])){
                     if($_POST['price']=='0to10'){
                         $min=0;
@@ -197,6 +199,7 @@ function getRatingStarString($rating) {
             </form>
             <br/>
                 <?php
+>>>>>>> d69d4673bf6d0b67dc1d8eaeb2cf84790cd53b0c
                 $arraySize=sizeof($rows);
                 include 'pages.php';
                 $page = new pages();
@@ -205,11 +208,16 @@ function getRatingStarString($rating) {
                 if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(isset($_POST['perPage']))
                     {
+                        ?>
+  
+            <?php
                     if ($_POST['perPage']=='all')
                         $total=$arraySize;
                     else
-                        $total=$_POST['perPage'];  
-                    $page->setItemsPerPage($total);           
+                        $total=$_POST['perPage'];
+                    
+                    $page->setItemsPerPage($total);  
+                    
                     }
                     if(isset($_POST['pageNum'])){
                         $page->setCurrentPage((int)($_POST['pageNum']));
@@ -222,9 +230,6 @@ function getRatingStarString($rating) {
              ?>
             <div id='page-buttons'>
               <?php     
-              if(sizeof($rows)==0)
-                    echo  "no results found";
-                else{
               echo "<form id='pageform' action = '' method = 'post'>";
             if($currentPage==1)  
                echo "<button id='pageNum' disabled>previous</button>";
@@ -295,8 +300,7 @@ function getRatingStarString($rating) {
 
               <?php
                 }
-                
-                
+                }
                             
                            
               ?>
@@ -331,8 +335,6 @@ function getRatingStarString($rating) {
                 echo "<button id='pageNum' name='pageNum' value='".($currentPage+1)."'>next</button>"; 
             }
             echo "</form>";
-                }
-                }
             ?>
         
         </div>
@@ -355,11 +357,11 @@ function getRatingStarString($rating) {
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-
+<<<<<<< HEAD
+    <script src="scripts/items_per_page.js"></script>
+=======
     <!-- <script src="scripts/pages.js"></script> -->
-
+>>>>>>> 20ee2900561571fb861b8f920d1bb53020f8d354
   </body>
 
 </html>
