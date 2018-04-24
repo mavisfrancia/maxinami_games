@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
-    <link href="css/signIn.css" rel="stylesheet">
+    <!-- <link href="css/signIn.css" rel="stylesheet"> -->
     
   </head>
 
