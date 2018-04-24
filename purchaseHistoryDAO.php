@@ -20,9 +20,7 @@ class purchaseHistoryDAO {
     private $deleteSQL="DELETE FROM purchase_history WHERE user_id=? AND product_id=? AND time_of_purchase=?";
     function createPurchase($userID,$itemID,$quantity,$con) {
         $statement=mysqli_prepare($con, $this->createSQL);
-        $time = time();
-        $mysqltime = date("Y-m-d H:i:s", $time);
-        $statement->bind_param("iiis",$userID,$itemID,$quantity, $mysqltime);
+        $statement->bind_param("iiis",$userID,$itemID,$quantity, time());
         $statement->execute();
         $statement->close();
     }

@@ -23,7 +23,7 @@ class purchaseService {
 
     public function __construct() {
         $this->connector=new databaseConnector();
-        $this->purchaseAccess=new purchaseHistoryDAO();
+        $this->purchaseAccess=new puchaseHistoryDAO();
         $this->cartAccess=new shoppingCartDAO();
         $this->itemAccess=new itemDAO;
     }
@@ -88,14 +88,17 @@ class purchaseService {
         $result= $this->itemAccess->selectByID($itemID, $con);
         $num=$this->itemAccess->reduceQuantity($itemID, $quantity, $con);
         $this->cartAccess->deleteCartItem($userID, $itemID, $con);
-        if(count($result)==1){
-            $name=$result[0]->name;
-            $inventory=$result[0]->number;
+        if(mysqli_num_rows($result)==1){
+            while($row= mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                $name=$row["name"];
+                $inventory=$row["inventory"];
+            }
             if($num>0){
                 $this->purchaseAccess->createPurchase($userID,$itemID,$quantity,$con);
                 $outcome=TRUE;
             }
         }
+        mysqli_free_result($result);
         return ["name"=>$name,"outcome"=>$outcome,"inventory"=>$inventory,"quantity"=>$quantity];
         
     }
