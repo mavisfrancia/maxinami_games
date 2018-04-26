@@ -68,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             //Encrypt password
             $userpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
+            //Gain access to userService.php
             $add = new userService();
 
             $id = $add->addUser($username,$fullname,$address,$userpass,$phone,1);
@@ -87,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 header('Location: index.php');
             }
-            else
+            else//An error occurred for adding account into database
             {
                 header('Location: account_create.php');
                 exit();

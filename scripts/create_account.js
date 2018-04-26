@@ -49,19 +49,21 @@ $(document).ready(function(){
                $("#usernameerror").css({"color": "green"});
                document.getElementById("usernameerror").innerHTML = emailText;
 
+               //Check if username already exists
                $.ajax({
                    url: "check_if_username_available.php",
                    type: "post",
                    data: encodeURI("username=" + $("#username").val()),
                    success: function(data) {
-                   //alert("DATA: " + data + " TYPE: " + typeof(data));
-                   if(data === "false") 
+                   
+                   if(data === "false") //If username exists prevent the user from entering the data and inform them
                    {
                        emailText = "Email already exists";
                        $("#usernameerror").css({"color": "red"});
                        document.getElementById("usernameerror").innerHTML = emailText;
                        usernameFilled = false;
-                   } else 
+                   } 
+                   else //If username is new, give the user an ok message
                    {
                        emailText = "Username is OK";
                        $("#usernameerror").css({"color": "green"});
@@ -205,6 +207,8 @@ $(document).ready(function(){
        //Determines the strength of the password by checking for special character or number
        var numberTest = /\d+/;
        var specialTest = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+       
+       //Test password for either a number or special character
        var hasNumber = numberTest.test(pass);
        var hasSpecial = specialTest.test(pass);
        var hasLength = false;
@@ -233,7 +237,7 @@ $(document).ready(function(){
            $("#passverification").css({"color": "orange"});
            document.getElementById("passverification").innerHTML = passverify;
        }
-       else
+       else//If neither
        {
            passverify = "Password is weak";
            $("#passverification").css({"color": "red"});
@@ -290,6 +294,7 @@ $(document).ready(function(){
 
    }); 
 
+    //For confirm
    $("#confirm").keyup(function(){
        var pass = document.getElementById("password").value;
        var confirm = document.getElementById("confirm").value;

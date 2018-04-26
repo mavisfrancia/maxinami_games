@@ -1,5 +1,5 @@
-//This script stops new users from creating an account if either 
-//all required fields are not entered or password and confirm password is mismatched
+//This script stops users from editing their account if phone number is invalid
+//or password and confirm password mismatch.
 $(document).ready(function(){
 
     //Create boolean vars for password and phone
@@ -153,6 +153,7 @@ $(document).ready(function(){
        }
    }); 
 
+    //For the confirm field
    $("#confirm").keyup(function(){
        var text = "";
        var pass = document.getElementById("password").value;
