@@ -128,7 +128,7 @@ if ($hasReviewed) {
         
         <div class="col-lg-9">
           <div class="card mt-4">
-            <img class="card-img-top img-fluid col-sm-6" src="imgs/<?php echo $pictureLink; ?>" alt="">
+            <img class="card-img-top img-fluid" src="imgs/<?php echo $pictureLink; ?>" alt="">
               <div class="card-body">
                 <h1><?php echo ($hasReviewed ? "Update " : "Write a "); ?> Review</h1>
                 <h3 class="card-title"><?php echo $name; ?></h3>
