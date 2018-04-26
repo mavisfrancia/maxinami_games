@@ -155,7 +155,7 @@ $("document").ready(function() {
 
 	$("#checkout-btn").click(function(event) {
 		event.preventDefault();
-		alert("OK");
+		//alert("OK");
 		$("#checkout-form").submit();
 
 	});
