@@ -99,9 +99,18 @@ if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
         <div class="col-lg-9">
           <div class="card mt-4 text-center text-white border-danger">
             <div class="card-body text-danger">
-              <h1>Uh-oh! One or more of the items in your cart exceeds our stock.</h1>
-              <p>Item quantities have been adjusted. Please check your cart.</p>
-              <!-- <?php var_dump($_POST['purchase_result']); ?> -->
+              <h1>Uh-oh! :(</h1>
+              <p>You tried to order following items, but the quantity in your cart exceeded our stock:</p>
+              <?php
+              $result = json_decode(urldecode($_POST['result_arr']), true);
+              foreach ($result as $item) {
+                if($item['outcome'] == false) {
+                  echo "<p><strong>" . $item['name'] . "</strong></p>";
+                }
+              }
+              ?>
+              <p>Item quantities have been adjusted to the number we have in stock.<br />
+                 Please check your cart, and re-order.</p>
             </div>
           </div>
         </div>
