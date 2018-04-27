@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 24, 2018 at 03:14 PM
+-- Generation Time: Apr 27, 2018 at 02:42 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -62,8 +62,8 @@ INSERT INTO `items` (`itemid`, `name`, `description`, `price`, `pictureLink`, `i
 (16, 'Duel Masters Card Game Base Starter Deck', 'DuelMasters Card Game two player starter deck! Enter the &quot;Zone,&quot; a dimensional realm where mythical and mystical battles are fought between wild beings, and journey to become a tournament champion in the Duel Masters TCG! \r\nThis Starter contains two 20-card decks, one booster, an exclusive premium card, a Dreamwave mini-comic, two play mats, a quick start guide, an official rule book, and a DMAX offer. DuelMasters Card Game two player starter deck! Enter the &quot;Zone,&quot; a dimensional realm where mythical and mystical battles are fought between wild beings, and journey to become a tournament champion in the Duel Masters TCG! This Starter contains two 20-card decks, one booster, an exclusive premium card, a Dreamwave mini-comic, two play mats, a quick start guide, an official rule book, and a DMAX offer.\r\n', 14.99, 'duelMastersTCG2playerStarter.png', 50, 3, 0),
 (17, 'Magic The Gathering Mirage Starter Deck Mirage', 'Contains 60 cards from the Mirage block.\r\nCard List:\r\nCreature (24)\r\n2 Azimaet Drake\r\n3 Bay Falcon\r\n1 Burning Palm Efreet\r\n1 Dream Fighter\r\n2 Flame Elemental\r\n1 Harmattan Efreet\r\n1 Mist Dragon\r\n3 Pyric Salamander\r\n1 Subterranean Spirit\r\n1 Suq\'Ata Firewalker\r\n2 Talruum Minotaur\r\n3 Teferi\'s Drake\r\n1 Vaporous Djinn\r\n2 Wildfire Emissary\r\n\r\nSorcery (4)\r\n2 Dream Cache\r\n1 Goblin Scouts\r\n1 Kaervek\'s Torch\r\nInstant (8)\r\n2 Boomerang\r\n1 Dissipate\r\n1 Incinerate\r\n2 Meddle\r\n1 Mystical Tutor\r\n1 Power Sink\r\n\r\nLand (24)\r\n12 Island\r\n12 Mountain\r\n', 39.99, 'magic_gatheringMirageStarter.png', 50, 3, 0),
 (18, 'Super Mario Odyssey', 'Use amazing new abilities&mdash;like the power to capture and control objects, animals, and enemies&mdash;to collect Power Moons so you can power up the Odyssey airship and save Princess Peach from Bowser\'s wedding plans!\r\n\r\nThanks to heroic, hat-shaped Cappy, Mario\'s got new moves that\'ll make you rethink his traditional run-and-jump gameplay&mdash;like cap jump, cap throw, and capture. Use captured cohorts such as enemies, objects, and animals to progress through the game and uncover loads of hidden collectibles. And if you feel like playing with a friend, just pass them a Joy-Con&trade; controller! Player 1 controls Mario while Player 2 controls Cappy. This sandbox-style 3D Mario adventure&mdash;the first since 1996\'s beloved Super Mario 64&trade; and 2002\'s Nintendo GameCube&trade; classic Super Mario Sunshine&trade;&mdash;is packed with secrets and surprises, plus exciting new kingdoms to explore.\r\n\r\nExplore astonishing new locales like skyscraper-packed New Donk City to your heart\'s content, and run into familiar friends and foes as you try to save Princess Peach from Bowser\'s dastardly wedding plans.\r\nFind something interesting? Toss your cap at it and see what happens! There are lots of fun and surprising ways to interact with your surroundings.\r\nBe sure to bring any coins you find to a Crazy Cap store, where you can exchange them for decorative souvenirs for the Odyssey and new outfits for Mario! Some destinations have very exclusive dress codes, after all&hellip;\r\nHand a Joy-Con&trade; controller to a friend to enjoy simultaneous multiplayer: Player 1 controls Mario while Player 2 controls Mario\'s new ally Cappy.\r\nUse Snapshot Mode to freeze time while playing the game and take screenshots that you can customize using various options and filters. Screenshots can be shared via social media or uploaded to PCs and smart devices* using all of the Nintendo Switch&trade; system\'s built-in screenshot tools.\r\n', 59.99, 'superMarioOdyssey.png', 50, 2, 0),
-(19, 'Legend of Zelda: Breath of the Wild', 'Forget everything you know about The Legend of Zelda games. Step into a world of discovery, exploration, and adventure in The Legend of Zelda: Breath of the Wild, a boundary-breaking new game in the acclaimed series. Travel across vast fields, through forests, and to mountain peaks as you discover what has become of the kingdom of Hyrule In this stunning Open-Air Adventure. Now on Nintendo Switch, your journey is freer and more open than ever. Take your system anywhere, and adventure as Link any way you like.\r\n\r\nFeatures:\r\n\r\nExplore the wilds of Hyrule any way you like&mdash;anytime, anywhere! - Climb up towers and mountain peaks in search of new destinations, then set your own path to get there and plunge into the wilderness. Along the way, you\'ll battle towering enemies, hunt wild beasts and gather ingredients for the food and elixirs you\'ll make to sustain you on your journey. With Nintendo Switch, you can literally take your journey anywhere.\r\nMore than 100 Shrines of Trials to discover and explore - Shrines dot the landscape, waiting to be discovered in any order you want. Search for them in various ways, and solve a variety of puzzles inside. The tasks you must perform in each Shrine varies, and you\'ll never expect the challenges you\'ll face until you enter. Some will involve realistic physics, and some will require you to harness the power of nature, including electricity, wind, fire, and more. Work your way through the traps and devices inside, utilizing your runes and think outside the box to earn special items and other rewards that will help you on your adventure.\r\nBe prepared and properly equipped &ndash; With an entire world waiting to be explored, you\'ll need a variety of outfits and gear to reach every corner. You may need to bundle up with warmer clothes or change into something better suited to the desert heat. Some clothing even has special effects that, for example, can make you faster or stealthier.\r\nBattling enemies requires strategy &ndash; The world is inhabited with enemies of all shapes and sizes. Each one has its own attack method and weaponry, so you must think quickly and develop the right strategies to defeat them.\r\namiibo compatibility &ndash; The Wolf Link amiibo from Twilight Princess HD, the Zelda 30th Anniversary series amiibo, and The Legend of Zelda: Breath of the Wild series amiibo are all compatible with this game. Tap the Wolf Link amiibo (sold separately) to make Wolf Link appear in the game. Wolf Link will attack enemies on his own and help you find items you&rsquo;re searching for. Tap a Zelda 30th Anniversary series amiibo to receive helpful in-game items or even a treasure chest!\r\n', 59.99, 'LoZBreathOfTheWild.png', 50, 2, 0),
-(20, 'God of War', 'A New Beginning &mdash; His vengeance against the gods of Olympus far behind him, Kratos now lives as a man in the lands of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive&hellip; and teach his son to do the same\r\nSecond Chances &mdash; As mentor and protector to a son determined to earn his respect, Kratos is faced with an unexpected opportunity to master the rage that has long defined him. Questioning the dark lineage he&rsquo;s passed on to his son, he hopes to make amends for the shortcomings of his past\r\nMidgard and Beyond &mdash; Set within the untamed forests, mountains, and realms of Norse lore, God of War features a distinctly new setting with its own pantheon of creatures, monsters, and gods\r\nVicious, Physical Combat &mdash; With an intimate, over-the-shoulder free camera that brings the action closer than ever, combat in God of War is up close, frenetic, and unflinching. Kratos&rsquo; axe &mdash; powerful, magic and multifaceted &mdash; is a brutal weapon as well as a versatile tool for exploration\r\n', 59.99, 'godOfWar.png', 50, 2, 0),
+(19, 'Legend of Zelda: Breath of the Wild', 'Forget everything you know about The Legend of Zelda games. Step into a world of discovery, exploration, and adventure in The Legend of Zelda: Breath of the Wild, a boundary-breaking new game in the acclaimed series. Travel across vast fields, through forests, and to mountain peaks as you discover what has become of the kingdom of Hyrule In this stunning Open-Air Adventure. Now on Nintendo Switch, your journey is freer and more open than ever. Take your system anywhere, and adventure as Link any way you like.\r\n\r\nFeatures:\r\n\r\nExplore the wilds of Hyrule any way you like&mdash;anytime, anywhere! - Climb up towers and mountain peaks in search of new destinations, then set your own path to get there and plunge into the wilderness. Along the way, you\'ll battle towering enemies, hunt wild beasts and gather ingredients for the food and elixirs you\'ll make to sustain you on your journey. With Nintendo Switch, you can literally take your journey anywhere.\r\nMore than 100 Shrines of Trials to discover and explore - Shrines dot the landscape, waiting to be discovered in any order you want. Search for them in various ways, and solve a variety of puzzles inside. The tasks you must perform in each Shrine varies, and you\'ll never expect the challenges you\'ll face until you enter. Some will involve realistic physics, and some will require you to harness the power of nature, including electricity, wind, fire, and more. Work your way through the traps and devices inside, utilizing your runes and think outside the box to earn special items and other rewards that will help you on your adventure.\r\nBe prepared and properly equipped &ndash; With an entire world waiting to be explored, you\'ll need a variety of outfits and gear to reach every corner. You may need to bundle up with warmer clothes or change into something better suited to the desert heat. Some clothing even has special effects that, for example, can make you faster or stealthier.\r\nBattling enemies requires strategy &ndash; The world is inhabited with enemies of all shapes and sizes. Each one has its own attack method and weaponry, so you must think quickly and develop the right strategies to defeat them.\r\namiibo compatibility &ndash; The Wolf Link amiibo from Twilight Princess HD, the Zelda 30th Anniversary series amiibo, and The Legend of Zelda: Breath of the Wild series amiibo are all compatible with this game. Tap the Wolf Link amiibo (sold separately) to make Wolf Link appear in the game. Wolf Link will attack enemies on his own and help you find items you&rsquo;re searching for. Tap a Zelda 30th Anniversary series amiibo to receive helpful in-game items or even a treasure chest!\r\n', 59.99, 'LoZBreathOfTheWild.png', 50, 2, 5),
+(20, 'God of War', 'A New Beginning &mdash; His vengeance against the gods of Olympus far behind him, Kratos now lives as a man in the lands of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive&hellip; and teach his son to do the same\r\nSecond Chances &mdash; As mentor and protector to a son determined to earn his respect, Kratos is faced with an unexpected opportunity to master the rage that has long defined him. Questioning the dark lineage he&rsquo;s passed on to his son, he hopes to make amends for the shortcomings of his past\r\nMidgard and Beyond &mdash; Set within the untamed forests, mountains, and realms of Norse lore, God of War features a distinctly new setting with its own pantheon of creatures, monsters, and gods\r\nVicious, Physical Combat &mdash; With an intimate, over-the-shoulder free camera that brings the action closer than ever, combat in God of War is up close, frenetic, and unflinching. Kratos&rsquo; axe &mdash; powerful, magic and multifaceted &mdash; is a brutal weapon as well as a versatile tool for exploration\r\n', 59.99, 'godOfWar.png', 47, 2, 4.5),
 (21, 'Uncharted: The Lost Legacy', 'Critically-acclaimed developer Naughty Dog\'s standalone Uncharted adventure starring Chloe Frazer.\r\nVenture deep into India\'s Western Ghats as Chloe and Nadine recover an ancient artifact and fight their way through fierce opposition to prevent the region from falling into chaos.\r\nUNCHARTED: The Lost Legacy will come with access to UNCHARTED 4: A Thief\'s End Multiplayer and Survival modes. Online multiplayer on PS4 requires a PlayStation Plus membership, sold separately.\r\n', 29.99, 'unchartedTheLostLegacy.jpg', 50, 2, 0),
 (22, 'Shadow of the Colossus', 'Explore vast forbidden lands filled with haunting ruins on a quest to bring a girl back to life\r\nConquer an unforgettable menagerie of towering creatures, each presenting a uniquely crafted challenge to overcome\r\nThe beloved all time classic gets rebuilt from the ground up for PlayStation 4 system;no battery used\r\n', 39.99, 'shadowOfTheColossus.png', 50, 2, 0),
 (23, 'Sea of Thieves', 'Sea of Thieves offers the essential pirate experience, packed to the seams with sailing and exploring, fighting and plundering, riddle solving and treasure hunting &ndash; everything you need to live the pirate life you&rsquo;ve always dreamed about. With no set roles, you have complete freedom to approach the world, and other players, however you choose.\r\n\r\n\r\nThe pirate life\r\nA world of real players\r\nIn Sea of Thieves, every sail on the horizon is a crew of real players, but what might their intentions be? Perhaps theyï¿½re seeking peaceful parley, plotting to deprive you of your hard-earned plunder or simply itching to enjoy the thrill of a good battle on the high seas. How you choose to respond may mean the difference between resounding triumph and a close-up look at the ocean floor.\r\n\r\nShared world\r\nShared-World Adventure Game created by Rare Ltd. Be the pirates you want to be in a shared world filled with real players.\r\n\r\n', 59.99, 'seaOfThieves.jpg', 50, 2, 0),
@@ -74,11 +74,12 @@ INSERT INTO `items` (`itemid`, `name`, `description`, `price`, `pictureLink`, `i
 (28, 'Steam $50 Gift Card', 'A gift card for Valve Steam.', 50, 'steam50.png', 50, 4, 0),
 (29, 'Playstation Store $50 Gift Card', 'A gift card for Playstation Network Store.\r\nThis card is valid for:\r\nPlaystation 3\r\nPlaystation 4\r\nPlaystation Vita\r\nPlaystation Portable System (PSP)\r\n', 50, 'playStationStore50.png', 50, 4, 0),
 (30, 'Xbox Live $50 Gift Card', 'A gift card for the Xbox Live store.\r\nThis card is valid for:\r\nXbox One\r\nXbox 360\r\n', 50, 'xbox50.jpg', 50, 4, 0),
-(31, 'Mass Effect', 'As Commander Shepard, you lead an elite squad on a heroic, action-packed adventure throughout the galaxy. Discover the imminent danger from an ancient threat and battle the traitorous Saren and his deadly army to save civilization. The fate of all life depends on your actions!\r\nYear: 2007\r\nPlatform: Xbox 360', 19.99, 'massEffect.jpg', 51, 2, 0),
+(31, 'Mass Effect', 'As Commander Shepard, you lead an elite squad on a heroic, action-packed adventure throughout the galaxy. Discover the imminent danger from an ancient threat and battle the traitorous Saren and his deadly army to save civilization. The fate of all life depends on your actions!\r\nYear: 2007\r\nPlatform: Xbox 360', 19.99, 'massEffect.jpg', 74, 2, 0),
 (35, 'Minecraft Prepaid Card', 'This has a code which will allow you to download one copy of Minecraft: Java Edition', 26.95, 'minecraftPrepaidCard.png', 50, 4, 0),
 (36, 'Lost in a Jigsaw: The Diagonal Maze Puzzle', 'Only by figuring out these cunning 515 piece diagonally cut maze puzzles will you be able to survive before you are Lost in a Jigsaw. In Escape from Eden, There is only one way out, and it will take all of your cunning and logic to escape. Before your perilous journey home, you must assemble the very maze you\'re trapped within!', 14.95, 'lostInAJigsaw.png', 4, 1, 0),
 (37, 'Nintendo Selects: Animal Crossing: New Leaf', 'Animal Crossing: New Leaf is loaded with new characters, items, and activities to enjoy all year long. Customize outfits in countless ways. Furnish your house with an extensive variety of furniture, carpet, and wall decorations to reflect your personality. Visit the new Main Street shopping area and Happy Home Showcase. Swim in the ocean to find rare shellfish. Collect insects and fossils all year long. As mayor, make the big decisions about what to build, business hours for shops, and other new ways to customize your town to your liking. Then connect with friends to show off what makes your character, your house, and your town unique.', 19.99, 'animalCrossingNewLeaf.jpg', 50, 2, 0),
-(38, 'Cards Against Humanity', 'Cards Against Humanity is a party game for horrible people. Now version 2.0! Over 150 new cards since the last version. Contains 500 white cards and 100 black cards for maximum replayability. Includes a booklet of sensible game rules and preposterous alternate rules. America\'s #1 gerbil coffin. ', 25, 'cardsAgainstHumanity.png', 50, 3, 0);
+(38, 'Cards Against Humanity', 'Cards Against Humanity is a party game for horrible people. Now version 2.0! Over 150 new cards since the last version. Contains 500 white cards and 100 black cards for maximum replayability. Includes a booklet of sensible game rules and preposterous alternate rules. America\'s #1 gerbil coffin. ', 25, 'cardsAgainstHumanity.png', 50, 3, 0),
+(39, 'Star Wars Knights of the Old Republic', 'Choose Your Path.\r\n\r\nIt is four thousand years before the Galactic Empire and hundreds of Jedi Knights have fallen in battle against the ruthless Sith. You are the last hope of the Jedi Order. Can you master the awesome power of the Force on your quest to save the Republic? Or will you fall to the lure of the dark side? Hero or villain, saviour or conqueror... you alone will determine the destiny of the entire galaxy!\r\n\r\nâ€¢ A brand new Star Wars role-playing experience with unique characters, creatures, vehicles and planets.\r\nâ€¢ Learn to use the Force with over 40 different powers and build your own lightsaber.\r\nâ€¢ Adventure through some of the most popular Star Wars locations, including Tatooine and the Wookiee homeworld Kashyyyk.\r\nâ€¢ Choose your party from nine customisable characters, including Twi\'leks, droids and Wookiees.\r\nâ€¢ Travel to eight enormous worlds in your own starship, the Ebon Hawk.\r\n\r\nDeveloper: BioWare\r\nRelease Year: 2003', 9.99, 'KotOR.jpg', 40, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -98,9 +99,15 @@ CREATE TABLE `purchase_history` (
 --
 
 INSERT INTO `purchase_history` (`user_id`, `product_id`, `quantity`, `time_of_purchase`) VALUES
+(1, 1, 50, '2018-04-27 02:11:59'),
+(1, 20, 2, '2018-04-25 02:09:36'),
+(1, 26, 49, '2018-04-27 01:55:37'),
+(1, 26, 50, '2018-04-27 02:11:59'),
 (4, 19, 4, '2018-04-07 00:00:00'),
 (4, 20, 2, '2018-04-04 00:00:00'),
-(4, 26, 1, '2018-04-17 00:00:00');
+(4, 26, 1, '2018-04-17 00:00:00'),
+(5, 20, 1, '2018-04-25 02:03:58'),
+(5, 31, 1, '2018-04-27 00:40:28');
 
 -- --------------------------------------------------------
 
@@ -119,6 +126,8 @@ CREATE TABLE `shopping_cart` (
 --
 
 INSERT INTO `shopping_cart` (`user_id`, `product_id`, `quantity`) VALUES
+(2, 1, 50),
+(2, 20, 47),
 (6, 19, 0);
 
 -- --------------------------------------------------------
@@ -146,7 +155,8 @@ INSERT INTO `users` (`user_id`, `username`, `fullname`, `address`, `hashedpass`,
 (2, 'Admin@maxinami.edu', 'Admin', 'N/A', '$2y$10$mmvPF7UwCXFR7PXkF30O0eKYKDEQ9h6XoZKGMtpYVIkp1cSfg5Iv6', 'N/A', 0),
 (4, 'a@gmail.com', 'A A', '1111 1st St Dallas TX 77777', '$2y$10$Tl24GpoOCM5uhafqwxFPAOznFqTmYHCBYeMxse3DA5qVWKTurJhaG', '972-222-2222', 1),
 (5, 'mavis@email.com', 'Mavis Francia', '123 Main St', '$2y$10$zkE38n2qBVt5c8Qap.z6YeBCf2jELOkitWcu4i/mPc77RoBMVDYLi', '987-654-3210', 1),
-(6, 'nam130330@utdallas.edu', 'Nathan Morrison', 'This is a Secret', '$2y$10$ggNSSqt04hMhPcaRa5M0WOpNrbC5liYaFPt3cFCZSffzvqidrLhb2', '2142074268', 1);
+(6, 'nam130330@utdallas.edu', 'Nathan Morrison', 'This is a Secret', '$2y$10$ggNSSqt04hMhPcaRa5M0WOpNrbC5liYaFPt3cFCZSffzvqidrLhb2', '2142074268', 1),
+(7, 'jack@email.com', 'Jack Rack', '4321 Ron Dr.', '$2y$10$8rLBhYs.xao/eFuSReI9bumjitvWE1vguHESkvN7ospeSrZdwQnMe', '4322525555', 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +177,8 @@ CREATE TABLE `user_rating` (
 
 INSERT INTO `user_rating` (`user_id`, `product_id`, `description`, `rating`) VALUES
 (4, 19, 'Great Game', 5),
-(4, 20, 'Loved it', 4);
+(4, 20, 'Loved it', 4),
+(5, 20, 'Loved it a lot', 5);
 
 --
 -- Indexes for dumped tables
@@ -191,7 +202,9 @@ ALTER TABLE `purchase_history`
 -- Indexes for table `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  ADD UNIQUE KEY `user_id` (`user_id`,`product_id`);
+  ADD PRIMARY KEY (`user_id`,`product_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`product_id`),
+  ADD KEY `pid_fk` (`product_id`);
 
 --
 -- Indexes for table `users`
@@ -215,13 +228,13 @@ ALTER TABLE `user_rating`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `itemid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `itemid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -233,6 +246,13 @@ ALTER TABLE `users`
 ALTER TABLE `purchase_history`
   ADD CONSTRAINT `item_constraint` FOREIGN KEY (`product_id`) REFERENCES `items` (`itemid`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `user_constraint` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD CONSTRAINT `pid_fk` FOREIGN KEY (`product_id`) REFERENCES `items` (`itemid`),
+  ADD CONSTRAINT `uid_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `user_rating`
