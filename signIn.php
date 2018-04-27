@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +93,7 @@
           <div class="card mt-4">
             <div class="card-body">         
               <!--Sign in a current account-->
-              <h2>Sign In</h2>
+              <h2>Sign In</h2>            
               <form id="user_info" method="post" action="find_user.php">
                 <div>
                         <label for="username">Username</label>
@@ -106,7 +108,13 @@
                 </div>
 
                 <div id="message">
-  				
+                    <?php
+                    if(isset($_SESSION['errorMessage'])){
+                        echo "<script type='text/javascript'>alert('" . $_SESSION['errorMessage'] . "');</script>";
+                        session_unset();
+                    }
+                    
+                                ?>
   		          </div>
               </form>
 
