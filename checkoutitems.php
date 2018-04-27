@@ -16,7 +16,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					$_SESSION['cart'][$item['id']] = $item['inventory'];
 				}
 			}
-			header('Location: fail.php');
+			?>
+
+			<form id="failForm" action="fail.php">
+				<input type="text" name="result_arr" value="<?php echo(serialize($result)); ?>" />
+			</form>
+
+			<script>
+				document.getElementById('failForm').submit();
+			</script>
+
+
+			<?php
+
+
+
+
+
+
+			//header('Location: fail.php');
 		}
 		else if ($result != FALSE) {
 			// Purchase successful
@@ -143,7 +161,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					$_SESSION['cart'][$item['id']] = $item['inventory'];
 				}
 			}
-			header('Location: fail.php');
+
+			?>
+
+			<form id="failForm" action="fail.php" method="post">
+				<input type="text" name="result_arr" value="<?php echo urlencode(json_encode($result)); ?>" />
+			</form>
+
+			<script>
+				document.getElementById('failForm').submit();
+			</script>
+
+
+			<?php
+
+			var_dump(json_encode($result));
+			//header('Location: fail.php');
 		}
 		else if ($result != FALSE) {
 			// Purchase successful
