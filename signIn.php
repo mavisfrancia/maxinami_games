@@ -91,7 +91,7 @@
           <div class="card mt-4">
             <div class="card-body">         
               <!--Sign in a current account-->
-              <h2>Sign In</h2>
+              <h2>Sign In</h2>            
               <form id="user_info" method="post" action="find_user.php">
                 <div>
                         <label for="username">Username</label>

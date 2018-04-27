@@ -64,8 +64,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo 'login success';
             }
             else{
-                    header('Location: signIn.php');
-                    echo 'login fail';
+                    header('Location: signIn.php?login=f');
+                    
                    exit();
             }
 	}
