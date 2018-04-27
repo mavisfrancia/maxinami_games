@@ -65,16 +65,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo 'login success';
             }
             else{
-<<<<<<< HEAD
-                    header('Location: signIn.php?login=f');
-                    
-                   exit();
-=======
                 $_SESSION['errorMessage'] = "Username/password is invalid.";
                 header('Location: signIn.php');
 
                 exit();
->>>>>>> b875bbc208bc2318ad723d264eceed8dd52d5919
             }
 	}
 }
