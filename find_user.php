@@ -27,8 +27,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	
         //If fields are empty return to sign in
 	if(!empty($ERR)){
-		header('Location: signIn.php');
-		exit();
+            $_SESSION['errorMessage'] = "Username/password is empty.";
+            header('Location: signIn.php');
+            exit();
 	}
 	else{
 		
@@ -64,9 +65,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo 'login success';
             }
             else{
-                    header('Location: signIn.php');
-                    echo 'login fail';
-                   exit();
+                $_SESSION['errorMessage'] = "Username/password is invalid.";
+                header('Location: signIn.php');
+
+                exit();
             }
 	}
 }

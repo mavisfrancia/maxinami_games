@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,7 +108,13 @@
                 </div>
 
                 <div id="message">
-  				
+                    <?php
+                    if(isset($_SESSION['errorMessage'])){
+                        echo "<script type='text/javascript'>alert('" . $_SESSION['errorMessage'] . "');</script>";
+                        session_unset();
+                    }
+                    
+                                ?>
   		          </div>
               </form>
 
