@@ -18,7 +18,7 @@ class itemDAO {
     private $updateSQL="UPDATE items SET name=?,description=?,price=?,inventory=?,pictureLink=?,type=?,rating=? WHERE itemid=?";
     private $deleteSQL="DELETE FROM items WHERE itemid=?";
     private $searchSQL='SELECT * FROM items WHERE type > "0"';
-    private $reduceQuantitySQL="UPDATE items SET inventory=inventory-? WHERE itemid=? AND inventory>?";
+    private $reduceQuantitySQL="UPDATE items SET inventory=inventory-? WHERE itemid=? AND inventory>=?";
             function createItem($name,$description,$price,$inventory,$pictureLink,$type,$rating,$con) {
         $statement=mysqli_prepare($con, $this->createSQL);
         $statement->bind_param("ssdisid",$name,$description,$price,$inventory,$pictureLink,$type,$rating );

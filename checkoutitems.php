@@ -9,13 +9,44 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Check out as user
 	if (isset($_SESSION['user_name'])) {
 		$result = $purchaseService->userPurchase($_SESSION['user_id']);
-		if ($result) {
+		if (is_array($result)) {
+			// Tried to purchase too much
+			foreach ($result as $item) {
+				if (!$item['outcome']) {
+					$_SESSION['cart'][$item['id']] = $item['inventory'];
+				}
+			}
+			?>
+
+			<form id="failForm" action="fail.php">
+				<input type="text" name="result_arr" value="<?php echo(serialize($result)); ?>" />
+			</form>
+
+			<script>
+				document.getElementById('failForm').submit();
+			</script>
+
+
+			<?php
+
+
+
+
+
+
+			//header('Location: fail.php');
+		}
+		else if ($result != FALSE) {
+			// Purchase successful
 			unset($_SESSION['cart']);
 			session_write_close();
 			header('Location: confirmation.php');
 		} else {
+			// Tried to purchase nothing
 			die("Something went wrong");
 		}
+
+
 	}
 
 	// Create new account, then check out as guest
@@ -123,11 +154,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Checkout as guest
 	else {
 		$result = $purchaseService->anonymousPurchase($_SESSION['cart']);
-		if ($result) {
+		if (is_array($result)) {
+			// Tried to purchase too much
+			foreach ($result as $item) {
+				if (!$item['outcome']) {
+					$_SESSION['cart'][$item['id']] = $item['inventory'];
+				}
+			}
+
+			?>
+
+			<form id="failForm" action="fail.php" method="post">
+				<input type="text" name="result_arr" value="<?php echo urlencode(json_encode($result)); ?>" />
+			</form>
+
+			<script>
+				document.getElementById('failForm').submit();
+			</script>
+
+
+			<?php
+
+			var_dump(json_encode($result));
+			//header('Location: fail.php');
+		}
+		else if ($result != FALSE) {
+			// Purchase successful
 			unset($_SESSION['cart']);
 			session_write_close();
 			header('Location: confirmation.php');
 		} else {
+			// Tried to purchase nothing
 			die("Something went wrong");
 		}
 	}

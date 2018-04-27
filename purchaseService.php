@@ -96,7 +96,7 @@ class purchaseService {
                 $outcome=TRUE;
             }
         }
-        return ["name"=>$name,"outcome"=>$outcome,"inventory"=>$inventory,"quantity"=>$quantity];
+        return ["id"=>$itemID, "name"=>$name,"outcome"=>$outcome,"inventory"=>$inventory,"quantity"=>$quantity];
         
     }
     private function successfulPurchase($record,$con) {

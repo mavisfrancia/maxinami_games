@@ -1,4 +1,8 @@
-<?php session_start(); 
+<?php session_start();
+
+if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
+  header("Location: index.php");
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,11 +19,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Icon set -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
-    <!-- <link href="css/signIn.css" rel="stylesheet"> -->
-    
+
   </head>
 
   <body>
@@ -46,8 +52,9 @@
               </a>
             </li>
             
-            <li class="nav-item active">
-                <?php
+            <li class="nav-item">
+                <?php 
+                    
                     if (isset($_SESSION['user_name']))
                         echo "<a class=\"nav-link\" href=\"account.php\">Your Account</a>";
                     else
@@ -89,54 +96,25 @@
         </div>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9"> 
-          <div class="card mt-4">
-            <div class="card-body">         
-              <!--Sign in a current account-->
-              <h2>Sign In</h2>            
-              <form id="user_info" method="post" action="find_user.php">
-                <div>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username">
-                </div>
-                <div>
-                        <label for="password">Password</label>
-                        <input type="Password" id="password" name="password">
-                </div>
-                <div id="user_submit">
-                        <button class="btn btn-primary" type="submit">Sign In</button>
-                </div>
-
-                <div id="message">
-                    <?php
-                    if(isset($_SESSION['errorMessage'])){
-                        echo "<script type='text/javascript'>alert('" . $_SESSION['errorMessage'] . "');</script>";
-                        session_unset();
-                    }
-                    
-                                ?>
-  		          </div>
-              </form>
-
-              <hr>
-
-              
-              <!--Create a new account-->
-              <form id="user_create" method="post" action="account_create.php">
-                  <div id="user_create">
-                      <h2>Do Not Have An Account? Create One Now!</h2>
-                      <button class="btn btn-primary" type="create">Create New Account</button>
-                  </div>
-
-                  <div id="message">
-
-                  </div>
-              </form>
+        <div class="col-lg-9">
+          <div class="card mt-4 text-center text-white border-danger">
+            <div class="card-body text-danger">
+              <h1>Uh-oh! :(</h1>
+              <p>You tried to order following items, but the quantity in your cart exceeded our stock:</p>
+              <?php
+              $result = json_decode(urldecode($_POST['result_arr']), true);
+              foreach ($result as $item) {
+                if($item['outcome'] == false) {
+                  echo "<p><strong>" . $item['name'] . "</strong></p>";
+                }
+              }
+              ?>
+              <p>Item quantities have been adjusted to the number we have in stock.<br />
+                 Please check your cart, and re-order.</p>
             </div>
           </div>
-
         </div>
-         <!-- /.col-lg-9 -->
+        <!-- /.col-lg-9 -->
 
       </div>
       <!-- /.row -->

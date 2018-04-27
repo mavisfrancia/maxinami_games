@@ -2,6 +2,10 @@
 
 $signedIn = isset($_SESSION['user_id']);
 
+if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
+  header("Location: index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
