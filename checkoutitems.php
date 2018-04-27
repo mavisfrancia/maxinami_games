@@ -10,16 +10,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	if (isset($_SESSION['user_name'])) {
 		$result = $purchaseService->userPurchase($_SESSION['user_id']);
 		if (is_array($result)) {
-			// Tried to purchase too much
 			foreach ($result as $item) {
 				if (!$item['outcome']) {
 					$_SESSION['cart'][$item['id']] = $item['inventory'];
 				}
 			}
+
 			?>
 
-			<form id="failForm" action="fail.php">
-				<input type="text" name="result_arr" value="<?php echo(serialize($result)); ?>" />
+			<form id="failForm" action="fail.php" method="post">
+				<input type="text" name="result_arr" value="<?php echo urlencode(json_encode($result)); ?>" />
 			</form>
 
 			<script>
@@ -27,14 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			</script>
 
 
-			<?php
-
-
-
-
-
-
-			//header('Location: fail.php');
+		<?php
 		}
 		else if ($result != FALSE) {
 			// Purchase successful
@@ -173,10 +166,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			</script>
 
 
-			<?php
-
-			var_dump(json_encode($result));
-			//header('Location: fail.php');
+		<?php
 		}
 		else if ($result != FALSE) {
 			// Purchase successful
