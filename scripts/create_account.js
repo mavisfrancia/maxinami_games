@@ -233,7 +233,7 @@ $(document).ready(function(){
        }
        else if(hasLength)//If password is long
        {
-           passverify = "Password is meduim";
+           passverify = "Password is medium";
            $("#passverification").css({"color": "orange"});
            document.getElementById("passverification").innerHTML = passverify;
        }

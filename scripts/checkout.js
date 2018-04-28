@@ -37,9 +37,10 @@ $("document").ready(function() {
 		}
 	});
 
-	$("#checkout-form input").click(function() {
+	$("#checkout-form input").mousedown(function() {
 		$(this).siblings(".error-msg").remove();
-	})
+		$(this).siblings(".pw-msg").remove();
+	});
 
 	$("#name").blur(function() {
 		if (!$(this).val())
@@ -80,6 +81,8 @@ $("document").ready(function() {
 	$("#password").blur(function() {
 		if (!$(this).val())
 			$("<p>Password is required</p>").addClass("error-msg").insertAfter(this);
+		else
+			testPasswordStrength($(this).val());
 	});
 
 	$("#password-verify").blur(function() {
@@ -123,6 +126,50 @@ $("document").ready(function() {
 	function isValidCreditCard(card) {
 		var isCreditCardRegex = /^[0-9]{16}$/;
 		return isCreditCardRegex.test(card);
+	}
+
+	function testPasswordStrength(password) {
+		if (password) {
+			//Determines the strength of the password by checking for special character or number
+	       var numberTest = /\d+/;
+	       var specialTest = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+
+	       //Contains the text for password strength
+	       var passverify = "";
+
+	       //Test password for either a number or special character
+	       var hasNumber = numberTest.test(password);
+	       var hasSpecial = specialTest.test(password);
+	       var hasLength = false;
+
+	       //Check for password length
+	       if (password.length >= 8)//Check for length
+	       {
+	           hasLength = true;
+	       }
+	       else
+	       {
+	           hasLength = false;
+	       }
+
+	       //Show password strength
+	       //If password is long and contains either a special character or number
+	       if((hasSpecial || hasNumber) && hasLength)
+	       {
+	           passverify = "Password is strong";
+	           $("<p>" + passverify + "</p>").addClass("pw-msg strong-pw").insertAfter("#password");
+	       }
+	       else if(hasLength)//If password is long
+	       {
+	           passverify = "Password is medium";
+	           $("<p>" + passverify + "</p>").addClass("pw-msg med-pw").insertAfter("#password");
+	       }
+	       else//If neither
+	       {
+	           passverify = "Password is weak";
+	           $("<p>" + passverify + "</p>").addClass("pw-msg weak-pw").insertAfter("#password");
+	       }
+		}
 	}
 
 	function validateFields() {
